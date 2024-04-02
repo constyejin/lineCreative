@@ -355,7 +355,7 @@ section {
   display: none;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 46%;
   transform: translate(-50%, -50%);
   width: 614px;
   height: 539px;
@@ -376,6 +376,7 @@ section {
   top: 73px;
   left: 61px;
 }
+
 .answer-slot {
   display: block;
   position: absolute;
@@ -385,10 +386,10 @@ section {
 
 /* 정답 슬롯에 들어간 퍼즐 오프셋 */
 .answer-slot .puzzle-piece {
-    top: -40px;
-    left: -8px;
-    width: 0;
-    height: 0;
+  top: -40px;
+  left: -8px;
+  width: 0;
+  height: 0;
 }
 
 /* 정답 슬롯 포지션 */
