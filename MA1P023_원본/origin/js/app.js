@@ -18,7 +18,6 @@ function init() {
 
   root.querySelector('#viewWrap').addEventListener('dragover', e => {
     e.preventDefault();
-
     e.dataTransfer.dropEffect = "move";
   });
 
@@ -79,14 +78,14 @@ function init() {
     }, false);
     element.addEventListener('mousedown', () => setSelectedPiece(element), false);
     element.addEventListener('touchdown', () => setSelectedPiece(element), false);
-    element.addEventListener('touchmove', () => hideRotateArea());
+    element.addEventListener('touchmove', () => hideRotateArea(), {passive : true});
 
     element.addEventListener('dragstart', () => {
       element.classList.add('dragging');
       hideRotateArea();
     });
 
-    element.addEventListener('dragend', (e) => {
+    element.addEventListener('dragend', () => {
       element.classList.remove('dragging');
     });
   });
@@ -100,6 +99,8 @@ function init() {
 function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   //console.log('droped slot: ', answerSlot);
   var dragArea = root.querySelector('#puzzle-drag-area');
+  var dropArea = root.querySelector('#puzzle-drop-area');
+  var answerPanel = dropArea.querySelector('.answer-panel');
 
   if (closestDropzone === dragArea) {
     resetPiecePosition(piece);
@@ -144,13 +145,22 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   setSelectedPiece(null);
   answerSlot.appendChild(piece);
 
+
   // 모든 조각이 정답판에 들어가있는지?
-  var isAllAnswer = Array.from(pieces).every(p => p.parentElement.hasAttribute('data-correct')); 
-  if (isAllAnswer)
-  {
+  // var isAllAnswer = Array.from(pieces).every(p => p.parentElement.hasAttribute('data-correct')); 
+
+ var isAllAnswer = Array.from(answerPanel.querySelectorAll('.answer-slot')).every(piece => piece.querySelector('.puzzle-piece') !== null); 
+ console.log(isAllAnswer);
+
+  if (isAllAnswer) {
     showDoneButton();
+  } else {
+    hideDoneButton();
   }
+
+
 }
+
 
 function showDoneButton() {
   root.querySelector('.btn-done').classList.add('active');
@@ -181,6 +191,7 @@ function onClickDoneButton() {
   } else {
     // 오답
     hideDoneButton();
+    root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
     incorrectPieces.forEach(p => {
       resetPiecePosition(p);
     });
@@ -196,10 +207,11 @@ function setSelectedPiece(piece) {
   if (piece != null) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
+      hideDoneButton()
       setSelectedPiece(null);
       return;
     }
-
+    
     selectedPiece = piece;
     selectedPiece.classList.add('selected');
     showRotateArea();
