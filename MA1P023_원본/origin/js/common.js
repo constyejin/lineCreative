@@ -159,11 +159,11 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
     targetEl.addEventListener('touchstart', e => {
         var touchLocation = e.touches[0];
         startDrag(touchLocation.clientX, touchLocation.clientY);
-    });
+    }, { passive: true });
     targetEl.addEventListener('touchmove', e => {
         var touchLocation = e.touches[0];
         moveDrag(touchLocation.clientX, touchLocation.clientY);
-    });
+    }, { passive: true });
     targetEl.addEventListener('touchend', e => {
         var touchLocation = e.changedTouches[0];
         restoreElementPos();
@@ -184,10 +184,14 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
         previewEl.style.height = previewSize + 'px';
         previewEl.style.opacity = 1;
         previewEl.style.zIndex = 9;
-        previewEl.style.cursor = 'move';
-
+        // previewEl.style.cursor = 'move';
+        
         var img = previewEl.querySelector('img');
-        img.style.width = '100%';
+        var imgSrc = img.src.slice(img.src.lastIndexOf('/') + 1, img.src.lastIndexOf('.'));
+        const imgNum = imgSrc.match(/\d+/)[0];
+
+        img.src = new URL(`../img/selected-piece-${imgNum}.png`, metaUrl).href;
+        img.style.width = '90%';
         img.style.height = 'auto';
 
         // e.dataTransfer.dropEffect = 'move';
@@ -195,6 +199,7 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
         e.dataTransfer.setDragImage(new Image(), 0, 0);
         previewEl.style.display = 'none';
     }, false);
+
     targetEl.addEventListener('drag', e => {
         var previewSize = imgSize * scale / 100;
         var inversedStart = targetEl.getAttribute('data-inversed') == 'true';  // 역삼각형으로 시작했는지?
@@ -227,3 +232,5 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
     // desktop end
 
 }
+
+
