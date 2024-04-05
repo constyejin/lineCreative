@@ -184,7 +184,7 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
         previewEl.style.height = previewSize + 'px';
         previewEl.style.opacity = 1;
         previewEl.style.zIndex = 9;
-        // previewEl.style.cursor = 'move';
+        previewEl.style.cursor = 'move';
         
         var img = previewEl.querySelector('img');
         var imgSrc = img.src.slice(img.src.lastIndexOf('/') + 1, img.src.lastIndexOf('.'));
@@ -223,6 +223,8 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
         }
         previewEl.style.left = (e.pageX - (previewSize / 2) + offsetX)  + "px";
         previewEl.style.top = (e.pageY + 5 - (previewSize / 2) + offsetY) +  "px";
+        console.log(previewEl.style.top);
+        console.log(previewEl.style.left);
         previewEl.style.display = 'block';
     });
     targetEl.addEventListener('dragend', e => {
