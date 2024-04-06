@@ -1,0 +1,538 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-Thin.woff) format('woff');
+  font-weight: 100;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-ExtraLight.woff) format('woff');
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-Light.woff) format('woff');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-Regular.woff) format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-Medium.woff) format('woff');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url(../fonts/NanumSquareRoundR.woff) format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-SemiBold.woff) format('woff');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../fonts/Pretendard-Bold.woff) format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url(../fonts/NanumSquareRoundEB.woff) format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+#viewWrap {
+  display:flex; 
+  justify-content:center; 
+  align-items: center;
+  width:100%; 
+  height:100%;
+  background:#fff;
+}
+
+section {
+  position: relative;
+  width:1087px; 
+  height: 612px; 
+  min-height: 612px; 
+}
+
+.view_mode {
+  position:absolute; 
+  bottom:10px;
+  right:15px;
+  z-index:1000;
+  width: 40px;
+  height: 40px;
+}
+
+.reset_btn {
+  position:absolute; 
+  top:20px;
+  right: 15px;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+}
+
+.btn-done {
+  display: none; 
+  position:absolute; 
+  top:20px;
+  right:75px;
+  z-index:1000;
+  width: 50px;
+  height: 50px;
+}
+
+.view_mode img,
+.reset_btn img,
+.btn-done img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-done.active {
+  display: block;
+}
+
+.dragging {
+  opacity: 0; 
+  cursor: move;
+}
+
+.viewWrap > .drag-preview {
+  display: none;
+}
+
+.puzzle-content {
+  display: flex;
+}
+
+/* 퍼즐조각판 */
+.puzzle-drag-area {
+  position: relative;
+  width: 424px;
+  height: 612px;
+  background: #F2F2F2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+/* 퍼즐조각판의 슬롯 */
+.puzzle-drag-area .puzzle-piece-slot {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-top: -17px;
+}
+
+.puzzle-drag-area .puzzle-piece-slot::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  width: 150px;
+  height: 134px;
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="false"]::before {
+  background:url(../img/puzzle-slot-bg.png) no-repeat center center;
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="true"]::before {
+  background:url(../img/puzzle-slot-bg-inverse.png) no-repeat center center;
+}
+
+
+/* 퍼즐 조각 */
+/* .puzzle-piece-slot.inverse::before {
+  transform: rotate(180deg);
+} */
+
+.puzzle-piece::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  left: 0px;
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="false"] .puzzle-piece::before {
+  background:url(../img/shadow.png) no-repeat center center;
+  top: 4px; 
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="true"] .puzzle-piece::before {
+  background:url(../img/shadow-reve.png) no-repeat center center;
+  top: 7px; 
+}
+
+.answer-slot .puzzle-piece .rotate-holder::before {
+  display: none;
+}
+
+.puzzle-piece.selected .rotate-holder::before {
+  position: absolute; 
+  display: block; 
+  width: 100%; 
+  height: 100%; 
+
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="false"] .puzzle-piece.selected .rotate-holder::before {
+  content: url(../img/selected-slot.png); 
+  transform: rotate(180deg);
+  top: -11px; 
+  left: -3px; 
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="true"] .puzzle-piece.selected .rotate-holder::before {
+  content: url(../img/selected-slot.png); 
+  top: 13px; 
+  left: 3px; 
+}
+
+.puzzle-piece-slot[data-placeholder-inverse="true"] .puzzle-piece.selected .rotate-holder::before {
+  background:url(../img/puzzle-slot-bg-inverse.png) no-repeat center center;
+}
+
+/* .puzzle-piece.selected .rotate-holder::before {
+  background:url(../img/selected-slot.png) no-repeat center center;
+} */
+
+.puzzle-piece[data-angle="0"][data-inversed="true"] .rotate-holder::before  ,
+.puzzle-piece[data-angle="120"][data-inversed="true"] .rotate-holder::before,
+.puzzle-piece[data-angle="240"][data-inversed="false"] .rotate-holder::before,
+.puzzle-piece[data-angle="60"][data-inversed="true"] .rotate-holder::before  ,
+.puzzle-piece[data-angle="180"][data-inversed="true"] .rotate-holder::before ,
+.puzzle-piece[data-angle="300"][data-inversed="true"] .rotate-holder::before {
+  transform: rotate(180deg);
+}
+
+.puzzle-piece[data-angle="60"][data-inversed="false"] .rotate-holder::before,  
+.puzzle-piece[data-angle="180"][data-inversed="false"] .rotate-holder::before, 
+.puzzle-piece[data-angle="300"][data-inversed="false"] .rotate-holder::before, 
+.puzzle-piece[data-angle="0"][data-inversed="true"] .rotate-holder::before,   
+.puzzle-piece[data-angle="120"][data-inversed="true"] .rotate-holder::before, 
+.puzzle-piece[data-angle="240"][data-inversed="true"] .rotate-holder::before {
+  transform: rotate(0deg);
+}
+
+.puzzle-piece {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  z-index: 9999;
+}
+
+.rotate-holder {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  /* border: 1px solid red; */
+}
+
+/* .rotate-holder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid blue;
+} */
+
+.rotate-holder.drag-preview {
+  position: absolute;
+  z-index: -9999;
+  left: 0;
+  top: 0;
+  opacity: 1 !important;
+  cursor: move !important;
+}
+
+/* .puzzle-piece .rotate-holder img {
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 150px;
+    height: 134px;
+    transform-origin: 50% 83.66666666666667px;
+    cursor: move;
+    z-index: 9999;
+}
+.puzzle-piece .rotate-holder img.inverse {
+    transform-origin: 50% 44.133333px;
+} */
+
+.puzzle-piece .rotate-holder img {
+  position: absolute;
+  left: -8px;
+  top: 13px;
+  width: 166px;
+  height: 166px;
+  transform-origin: 50% 50%;
+  cursor: move;
+  z-index: 9999;
+}
+
+.puzzle-piece .rotate-holder img.inverse {
+  top: -26px;
+}
+
+.answer-slot img {
+  cursor: auto !important;
+}
+
+.puzzle-drag-area .page {
+  display: none;
+  width: 314px;
+  height: 572px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: space-around;
+  justify-content: center;
+  gap: 10px;
+}
+
+.page.active {
+  display: flex;
+}
+
+.btn-page-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 66px;
+  cursor: pointer;
+}
+
+.btn-page-arrow.active {
+  display: block;
+}
+#btn-page-prev {
+  left: 0;
+}
+#btn-page-next {
+  right: 0;
+}
+
+/* 정답판 */
+#puzzle-drop-area {
+  /* position: absolute;
+  left: 424px;
+  top: 0; */
+  width: 663px;
+  height: 612px;
+  background: #DEEFED;
+}
+
+#puzzle-drop-area-bg {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 584px;
+  height: 509px;
+}
+
+#correct-answer-bg {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 614px;
+  height: 539px;
+}
+
+#puzzle-drop-area .drop-area-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* 정답 슬롯 */
+.answer-panel {
+  position: relative;
+  display: block;
+  width: 544px;
+  height: 472px;
+  top: 73px;
+  left: 61px;
+}
+.answer-slot {
+  display: block;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+}
+
+/* 정답 슬롯에 들어간 퍼즐 오프셋 */
+.answer-slot .puzzle-piece {
+    top: -40px;
+    left: -8px;
+    width: 0;
+    height: 0;
+}
+
+/* 정답 슬롯 포지션 */
+.answer-slot:nth-of-type(1)  { top: 118px; left: 136px; /* background-color: red;     */ }
+.answer-slot:nth-of-type(2)  { top: 118px; left: 204px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(3)  { top: 118px; left: 272px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(4)  { top: 236px; left: 68px;  /* background-color: red;     */ }
+.answer-slot:nth-of-type(5)  { top: 236px; left: 136px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(6)  { top: 236px; left: 204px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(7)  { top: 236px; left: 272px; /* background-color: red;     */ }
+.answer-slot:nth-of-type(8)  { top: 236px; left: 340px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(9)  { top: 354px; left: 0px;   /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(10) { top: 354px; left: 68px;  /* background-color: red;     */ }
+.answer-slot:nth-of-type(11) { top: 354px; left: 136px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(12) { top: 354px; left: 204px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(13) { top: 354px; left: 272px; /* background-color: red;     */ }
+.answer-slot:nth-of-type(14) { top: 354px; left: 340px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(15) { top: 354px; left: 408px; /* background-color: yellow;  */ }
+
+/* 조각 회전 버튼 패널 */
+#btn-rotate-area {
+  display: none;
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 50px;
+  height: 92px;
+  left: 148px;
+  top: 38px;
+
+  background: #FFFFFF;
+  border: 1px solid #D7D7D7;
+  border-radius: 44px;
+  z-index: 999999;
+  padding: 5px 0;
+}
+
+.btn-rotate-area-wrap {
+  position: relative;
+}
+
+#btn-rotate-area.active {
+  display: block;
+}
+
+#btn-rotate-area img {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.cursor-pointer  {
+  cursor: pointer;
+}
+
+.correct-answer {
+  display: block !important;
+  animation-duration: 1s;
+  animation-name: correctAnswerAni;
+}
+
+@keyframes correctAnswerAni {
+  0% { opacity: 0; }
+  33.6666% { opacity: 1; }
+  66.66666% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+#img-touchguide {
+  position: absolute;
+  width: 57px;
+  height: 56px;
+  z-index: 9999999;
+  left: 125px;
+  top: 75px;
+  opacity: 0;
+  display: none;
+}
+
+.selectDisable {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#img-touchguide.guide-animation {
+  display: block;
+  animation: guideAnim;
+  animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes guideAnim {
+  0% {
+    opacity: 0;
+    left: 125px;
+    top: 75px;
+  }
+
+  2.5% {
+    opacity: 1;
+    left: 125px;
+    top: 75px;
+  }
+
+
+  22.5% {
+    left: 755px;
+    top: 225px;
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0;
+    left: 755px;
+    top: 225px;
+  }
+
+  25.0000001% {
+    opacity: 0;
+    left: 125px;
+    top: 75px;
+  }
+
+  27.5% {
+    opacity: 1;
+    left: 125px;
+    top: 75px;
+  }
+
+  47.5% {
+    left: 755px;
+    top: 225px;
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    left: 755px;
+    top: 225px;
+  }
+}
