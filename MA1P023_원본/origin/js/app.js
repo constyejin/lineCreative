@@ -150,7 +150,6 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   // var isAllAnswer = Array.from(pieces).every(p => p.parentElement.hasAttribute('data-correct')); 
 
  var isAllAnswer = Array.from(answerPanel.querySelectorAll('.answer-slot')).every(piece => piece.querySelector('.puzzle-piece') !== null); 
- console.log(isAllAnswer);
 
   if (isAllAnswer) {
     showDoneButton();
