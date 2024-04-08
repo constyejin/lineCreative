@@ -200,13 +200,18 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
         previewEl.style.display = 'none';
     }, false);
 
+
+    // desktop start
     targetEl.addEventListener('drag', e => {
         var previewSize = imgSize * scale / 100;
         var inversedStart = targetEl.getAttribute('data-inversed') == 'true';  // 역삼각형으로 시작했는지?
         var angle = parseInt(targetEl.getAttribute('data-angle'));   // 시계방향으로 몇 도 회전했는지
+
         var inversedPiece = (angle / 60) % 2 == 1 ? true : false;
         inversedPiece = inversedStart ? !inversedPiece : inversedPiece;
+
         var offsetX = 0, offsetY = 0;
+
         if (inversedStart) {
             if (inversedPiece) {
                 offsetX = 10 * scale / 100;
@@ -221,18 +226,29 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
                 offsetY = 30 * scale / 100;
             }
         }
-        previewEl.style.left = (e.pageX - (previewSize / 2) + offsetX)  + "px";
-        previewEl.style.top = (e.pageY + 5 - (previewSize / 2) + offsetY) +  "px";
-        console.log(previewEl.style.top);
-        console.log(previewEl.style.left);
+
+        // 마우스 포인터의 위치를로 요소가 화면을 벗어나는지 확인
+        var newX = e.pageX - (previewSize / 2) + offsetX;
+        var newY = e.pageY + 5 - (previewSize / 2) + offsetY;
+
+        newX = Math.max(0, Math.min(window.innerWidth - previewSize, newX));
+        newY = Math.max(0, Math.min(window.innerHeight - previewSize, newY));
+
+        // 화면 바깥 드래그 막기
+        if (newX <= 0 || newX >= window.innerWidth - previewSize || newY <= 0 || newY >= window.innerHeight - previewSize) {
+            return;
+        }
+        
+        previewEl.style.left = newX + "px";
+        previewEl.style.top = newY + "px";
         previewEl.style.display = 'block';
     });
+
     targetEl.addEventListener('dragend', e => {
         previewEl.remove();
         endDrag(e.clientX, e.clientY);
     });
     // desktop end
-
 }
 
 
