@@ -207,6 +207,7 @@ function setSelectedPiece(piece) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
       hideDoneButton()
+      root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
       setSelectedPiece(null);
       return;
     }
