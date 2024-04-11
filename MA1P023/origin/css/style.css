@@ -279,6 +279,10 @@ section {
     transform-origin: 50% 44.133333px;
 } */
 
+.puzzle-piece.selected {
+  cursor: pointer;
+}
+
 .puzzle-piece .rotate-holder img {
   position: absolute;
   left: -8px;
@@ -286,7 +290,6 @@ section {
   width: 166px;
   height: 166px;
   transform-origin: 50% 50%;
-  cursor: move;
   z-index: 9999;
 }
 
