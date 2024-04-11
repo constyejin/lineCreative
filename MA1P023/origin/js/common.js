@@ -3,7 +3,6 @@ var metaUrl = import.meta.url;
 var root = null;
 var viewWrap;
 var scale = 0;
-var animation;
 var scaleTotalV = 0;
 var dropzones;
 
@@ -131,7 +130,9 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
            var posY = rect.top + (rect.height / 2);
            var dist = calcDistance(touchX, posX, touchY, posY);
            dropzone.distanceFromTouch = dist;
+           root.querySelector('#btn-rotate-area').classList.add('active');
         });
+
         dropzones.sort((a,b) => a.distanceFromTouch > b.distanceFromTouch ? 1 : -1);
         var closestDropzone = dropzones[0];
 
@@ -146,13 +147,14 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
             var areaRight = areaRect.right;
             var areaBottom = areaRect.bottom;
             
-            // 터치한 위치가 드롭 영역 내에 있는지 확인
-            if (touchX >= areaLeft && touchX <= areaRight &&
-                touchY >= areaTop && touchY <= areaBottom) {
-                // 드롭 영역 내에 드롭되었을 때 실행할 코드 작성
-                onDroppedCallback(closestDropzone);
-            }
+        // 터치한 위치가 드롭 영역 내에 있는지 확인
+        if (touchX >= areaLeft && touchX <= areaRight &&
+            touchY >= areaTop && touchY <= areaBottom) {
+            // 드롭 영역 내에 드롭되었을 때 실행할 코드 작성
+            onDroppedCallback(closestDropzone);
+            root.querySelector('#btn-rotate-area').classList.remove('active');
         }
+      }
     }
 
     // mobile start
@@ -184,7 +186,7 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
         previewEl.style.height = previewSize + 'px';
         previewEl.style.opacity = 1;
         previewEl.style.zIndex = 9;
-        previewEl.style.cursor = 'move';
+        previewEl.style.cursor = 'pointer';
         
         var img = previewEl.querySelector('img');
         var imgSrc = img.src.slice(img.src.lastIndexOf('/') + 1, img.src.lastIndexOf('.'));
@@ -247,6 +249,7 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
     targetEl.addEventListener('dragend', e => {
         previewEl.remove();
         endDrag(e.clientX, e.clientY);
+                
     });
     // desktop end
 }
