@@ -10,6 +10,8 @@ var selectedPiece = null;
 var page1, page2, btnPageNext, btnPagePrev;
 var allowDropDistance = 150;
 
+var animation = null;
+
 function init() {
   startGuideAnim();
   // 퍼즐 회전판 초기화 및 이벤트 등록
@@ -213,7 +215,7 @@ function setSelectedPiece(piece) {
   if (piece != null) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
-      hideDoneButton()
+      hideDoneButton();
       root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
       setSelectedPiece(null);
       return;
@@ -293,9 +295,6 @@ function onClickReset(){//전체 리셋
   });
   startGuideAnim();
 }
-
-
-var animation = null;
 
 function startGuideAnim() {
   animation = anime({
