@@ -294,14 +294,25 @@ function onClickReset(){//전체 리셋
   startGuideAnim();
 }
 
+
+var animation = null;
+
 function startGuideAnim() {
-  var hand = root.querySelector('#img-touchguide');
-  hand.classList.add('guide-animation');
+  animation = anime({
+    targets: root.querySelector('#img-touchguide'),
+    opacity: [1, 1, 0], 
+    translateX: [125, 680], 
+    translateY: [75, 220],
+    duration: 3500, 
+    easing: 'easeInOutQuad', 
+    loop: true 
+  });
 }
 
 function stopGuideAnim() {
-  var hand = root.querySelector('#img-touchguide');
-  hand.classList.remove('guide-animation');
+  animation.pause();
+  animation.seek(0);
+  root.querySelector('#img-touchguide').style.display = 'none';
 }
 
 // 정답 빠른 확인용
