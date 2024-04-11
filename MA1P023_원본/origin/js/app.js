@@ -26,6 +26,7 @@ function init() {
     e.stopPropagation();
     onClickRotateLeft()
   }, false);
+
   root.querySelector('#btn-rotate-right').addEventListener('click', e => {
     e.preventDefault();
     e.stopPropagation();
@@ -150,14 +151,11 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   // var isAllAnswer = Array.from(pieces).every(p => p.parentElement.hasAttribute('data-correct')); 
 
  var isAllAnswer = Array.from(answerPanel.querySelectorAll('.answer-slot')).every(piece => piece.querySelector('.puzzle-piece') !== null); 
-
   if (isAllAnswer) {
     showDoneButton();
   } else {
     hideDoneButton();
   }
-
-
 }
 
 
@@ -171,17 +169,25 @@ function hideDoneButton() {
 
 function onClickDoneButton() {
   var incorrectPieces = [];
+
   pieces.forEach((p, i) => {
-    // answer slot
-    var answerSlot = p.parentElement;
+  // answer slot
+  var answerSlot = p.parentElement;
+  // console.log(answerSlot);
+  console.log('i', i);
+  console.log('num', answerSlot.getAttribute('data-correct-index'));
+  console.log('value_1', i == answerSlot.getAttribute('data-correct-index'));
 
-    var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
-    var isCorrectAngle = p.getAttribute('data-angle') == answerSlot.getAttribute('data-correct');
+  console.log('data-angle', p.getAttribute('data-angle'));
+  console.log('data-correct', answerSlot.getAttribute('data-correct'));
+  console.log('value_2', p.getAttribute('data-angle') == answerSlot.getAttribute('data-correct'));
 
-    // console.log(isCorrectAngle, isCorrectSlot);
+  var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
+  var isCorrectAngle = p.getAttribute('data-angle') == answerSlot.getAttribute('data-correct');
 
-    if (!isCorrectAngle || !isCorrectAngle)
-      incorrectPieces.push(p);
+
+  if (!isCorrectSlot || !isCorrectAngle)
+    incorrectPieces.push(p);
   });
 
   if (incorrectPieces.length == 0) {
@@ -191,6 +197,7 @@ function onClickDoneButton() {
     // 오답
     hideDoneButton();
     root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
+    
     incorrectPieces.forEach(p => {
       resetPiecePosition(p);
     });
@@ -300,6 +307,7 @@ function stopGuideAnim() {
 // 정답 빠른 확인용
 function autoAnswer() {
   var answerSlots = Array.from(root.querySelectorAll('.answer-slot'));
+  console.log(answerSlots)
   answerSlots.forEach((answerSlot) => {
     var pieceIndex = parseInt(answerSlot.getAttribute('data-correct-index'));
     var pieceAngle = parseInt(answerSlot.getAttribute('data-correct'));
@@ -325,8 +333,8 @@ window.addEventListener('script-loaded', function(ev) {
    setCommonRoot(root, {allowDrop});
    
    window.addEventListener('resize', function() {//autoscale
-        autoScale();
-    });
+      autoScale();
+   });
     
 	autoScale();
 
