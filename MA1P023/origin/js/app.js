@@ -100,7 +100,6 @@ function init() {
 
 // 퍼즐이 드랍되었을 때
 function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
-  //console.log('droped slot: ', answerSlot);
   var dragArea = root.querySelector('#puzzle-drag-area');
   var dropArea = root.querySelector('#puzzle-drop-area');
   var answerPanel = dropArea.querySelector('.answer-panel');
@@ -140,7 +139,6 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
 
   // 정답 슬롯에 이미 조각 있으면 들어있는 조각 되돌림
   if (otherPiece != null) {
-    // console.log('조각이 이미 있음 ', otherPiece);
     resetPiecePosition(otherPiece);
   }
   
@@ -173,27 +171,23 @@ function onClickDoneButton() {
   var incorrectPieces = [];
 
   pieces.forEach((p, i) => {
-  // answer slot
-  var answerSlot = p.parentElement;
-  // console.log(answerSlot);
-  console.log('i', i);
-  console.log('num', answerSlot.getAttribute('data-correct-index'));
-  console.log('value_1', i == answerSlot.getAttribute('data-correct-index'));
+    p.draggable = true;
 
-  console.log('data-angle', p.getAttribute('data-angle'));
-  console.log('data-correct', answerSlot.getAttribute('data-correct'));
-  console.log('value_2', p.getAttribute('data-angle') == answerSlot.getAttribute('data-correct'));
+    // answer slot
+    var answerSlot = p.parentElement;
+    var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
+    var isCorrectAngle = p.getAttribute('data-angle') == answerSlot.getAttribute('data-correct');
 
-  var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
-  var isCorrectAngle = p.getAttribute('data-angle') == answerSlot.getAttribute('data-correct');
-
-
-  if (!isCorrectSlot || !isCorrectAngle)
-    incorrectPieces.push(p);
+    if (!isCorrectSlot || !isCorrectAngle)
+      incorrectPieces.push(p);
   });
 
   if (incorrectPieces.length == 0) {
     // 정답
+    // 정답일 경우 조각 드래그 X
+    pieces.forEach(piece => {
+      piece.draggable = false;
+    });
     root.querySelector('#correct-answer-bg').classList.add('correct-answer');
   } else {
     // 오답
@@ -216,7 +210,7 @@ function setSelectedPiece(piece) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
       hideDoneButton();
-      root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
+      // root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
       setSelectedPiece(null);
       return;
     }
@@ -317,7 +311,7 @@ function stopGuideAnim() {
 // 정답 빠른 확인용
 function autoAnswer() {
   var answerSlots = Array.from(root.querySelectorAll('.answer-slot'));
-  console.log(answerSlots)
+
   answerSlots.forEach((answerSlot) => {
     var pieceIndex = parseInt(answerSlot.getAttribute('data-correct-index'));
     var pieceAngle = parseInt(answerSlot.getAttribute('data-correct'));
