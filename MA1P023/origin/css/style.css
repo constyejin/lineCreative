@@ -463,12 +463,11 @@ section {
 #img-touchguide {
   position: absolute;
   width: 57px;
+  /* top: 75px;
+  left: 125px; */
   height: 56px;
   z-index: 9999999;
-  left: 125px;
-  top: 75px;
   opacity: 0;
-  display: none;
 }
 
 .selectDisable {
@@ -477,63 +476,4 @@ section {
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
-}
-
-#img-touchguide.guide-animation {
-  display: block;
-  animation: guideAnim;
-  animation-duration: 10s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-@keyframes guideAnim {
-  0% {
-    opacity: 0;
-    left: 125px;
-    top: 75px;
-  }
-
-  2.5% {
-    opacity: 1;
-    left: 125px;
-    top: 75px;
-  }
-
-
-  22.5% {
-    left: 755px;
-    top: 225px;
-    opacity: 1;
-  }
-
-  25% {
-    opacity: 0;
-    left: 755px;
-    top: 225px;
-  }
-
-  25.0000001% {
-    opacity: 0;
-    left: 125px;
-    top: 75px;
-  }
-
-  27.5% {
-    opacity: 1;
-    left: 125px;
-    top: 75px;
-  }
-
-  47.5% {
-    left: 755px;
-    top: 225px;
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-    left: 755px;
-    top: 225px;
-  }
 }
