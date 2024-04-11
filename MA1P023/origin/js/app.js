@@ -171,8 +171,6 @@ function onClickDoneButton() {
   var incorrectPieces = [];
 
   pieces.forEach((p, i) => {
-    p.draggable = true;
-
     // answer slot
     var answerSlot = p.parentElement;
     var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
@@ -281,6 +279,7 @@ function onClickReset(){//전체 리셋
 
   pieces.forEach(p => {
     // 퍼즐 위치 처음위치로
+    p.draggable = true;
     resetPiecePosition(p);
 
     // 퍼즐들 각도 초기화
