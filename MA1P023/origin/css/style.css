@@ -246,15 +246,7 @@ section {
   position: relative;
   width: 150px;
   height: 150px;
-  /* border: 1px solid red; */
 }
-
-/* .rotate-holder img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 1px solid blue;
-} */
 
 .rotate-holder.drag-preview {
   position: absolute;
@@ -264,20 +256,6 @@ section {
   opacity: 1 !important;
   cursor: move !important;
 }
-
-/* .puzzle-piece .rotate-holder img {
-    position: absolute;
-    left: 0;
-    top: 13px;
-    width: 150px;
-    height: 134px;
-    transform-origin: 50% 83.66666666666667px;
-    cursor: move;
-    z-index: 9999;
-}
-.puzzle-piece .rotate-holder img.inverse {
-    transform-origin: 50% 44.133333px;
-} */
 
 .puzzle-piece.selected {
   cursor: pointer;
@@ -337,9 +315,6 @@ section {
 
 /* 정답판 */
 #puzzle-drop-area {
-  /* position: absolute;
-  left: 424px;
-  top: 0; */
   width: 663px;
   height: 612px;
   background: #DEEFED;
@@ -383,8 +358,24 @@ section {
 .answer-slot {
   display: block;
   position: absolute;
-  width: 150px;
-  height: 150px;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.answer-slot[data-inversed="true"] .rotate-holder {
+  clip-path: polygon(50% 102%, -2% 0%, 100% 0%);
+}
+
+.answer-slot[data-inversed="false"] .rotate-holder  {
+  clip-path: polygon(50% -2%, -2% 100%, 102% 100%);
+  cursor: pointer;
 }
 
 /* 정답 슬롯에 들어간 퍼즐 오프셋 */
