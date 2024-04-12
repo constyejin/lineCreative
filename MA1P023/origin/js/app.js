@@ -148,8 +148,6 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
 
 
   // 모든 조각이 정답판에 들어가있는지?
-  // var isAllAnswer = Array.from(pieces).every(p => p.parentElement.hasAttribute('data-correct')); 
-
  var isAllAnswer = Array.from(answerPanel.querySelectorAll('.answer-slot')).every(piece => piece.querySelector('.puzzle-piece') !== null); 
   if (isAllAnswer) {
     showDoneButton();
@@ -208,7 +206,6 @@ function setSelectedPiece(piece) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
       hideDoneButton();
-      // root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
       setSelectedPiece(null);
       return;
     }
