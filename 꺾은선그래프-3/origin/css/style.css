@@ -53,6 +53,14 @@
   font-display: swap;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 #viewWrap {
   display:flex; 
   justify-content:center; 
@@ -65,10 +73,31 @@
 
 section {
   position: relative;
-  width:1087px; 
-  height: 612px; 
-  min-height: 612px; 
+  width: 1920px; 
+  height: 1020px; 
+  min-height: 1020px; 
+  padding: 20px;
+  background: #fcfae0;
 }
 
+.left-box {
+  width: 80%;
+  height: 100%; 
+  border-radius: 18px;
+  background-color: #fff;
+}
 
+.view_mode {
+  position:absolute; 
+  top: 47px;
+  left: 27px;
+  width: 76px;
+  height: 76px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
 
