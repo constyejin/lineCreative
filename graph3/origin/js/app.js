@@ -22,10 +22,27 @@ window.addEventListener('script-loaded', function(ev) {
 		autoScale();
 	});
 
-
 	root.querySelector("#fullScreenButton").addEventListener("click", () => {
     toggleFullScreen();
   });
+
+
+  // 물결선 checked
+  let checkBox = root.querySelector('.check-break');
+
+  checkBox.addEventListener('click', function(e){
+    e.preventDefault();
+
+    this.querySelector('.checkbox-img').classList.toggle('checked');
+
+    let inputCheck = this.querySelector("input[type='checkbox']")
+    if(this.querySelector('.checkbox-img').classList.contains('checked')) {
+      inputCheck.checked = true;
+    } else {
+      inputCheck.checked = false;
+    }
+  })
 });
+
 
 
