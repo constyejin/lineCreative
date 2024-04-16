@@ -4,7 +4,6 @@ import {setCommonRoot, autoScale, toggleFullScreen} from './common.js';
 var metaUrl = import.meta.url;
 var root = null;
 
-
 window.addEventListener('script-loaded', function(ev) {	
   if (root) return;
   const u = new URL(metaUrl);
@@ -12,7 +11,7 @@ window.addEventListener('script-loaded', function(ev) {
 
   if (param && param !== ev.detail.unique) return;
 
-  const shadowRoot = ev.detail.root; // 커스텀 이벤트에 담겨진 shadowRoot 객체
+  const shadowRoot = ev.detail.root;
   root = shadowRoot;
 
   setCommonRoot(root, {});
@@ -33,6 +32,7 @@ window.addEventListener('script-loaded', function(ev) {
   let rowItem = root.querySelectorAll('.left-box-2 .row');
  
   function selectActive(selectItem) {
+    //  console.log(selectItem.innerHTML);
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
       if (e.target == selectUnit || e.target == selectItem) {
         selectUnit.classList.add('active');
@@ -42,11 +42,23 @@ window.addEventListener('script-loaded', function(ev) {
     });
     
     selectUnitItem.forEach(function(i) {
-      i.classList.remove('active');
-
       i.addEventListener('click', function() {
+        selectUnitItem.forEach(function(item) {
+          item.classList.remove('active');
+        });
+
         this.classList.add('active');
         selectUnitTxt.innerHTML = this.innerHTML;
+
+
+        // if (i.innerHTML === selectItem.innerHTML) {
+        //   this.classList.add('active');
+        // } else {
+        //   selectUnitItem.forEach(function(item) {
+        //     item.classList.remove('active');
+        //   });
+        // }
+
       })
     })
   }
@@ -59,9 +71,11 @@ window.addEventListener('script-loaded', function(ev) {
         selectUnit.style.top = '246px';
       }
       selectUnitTxt = item;
-      selectActive(selectUnitTxt);
+      // console.log(selectUnitTxt)
+      selectActive(item);
     })
   })
+
 
   // 그래프 칸 수에 따라 팝업 포지션 변경 (기본 3개)
   rowItem.forEach(function(item) {
@@ -93,15 +107,12 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
 
+    // 칸 플러스, 마이너스
     btnPlus.addEventListener('click', function() {
       if (rowItemLeng < 8) {
-        // 새로운 li 요소 생성
         let newLi = document.createElement('li');
-        // 새로운 li에 내용 추가
         newLi.textContent = '';
-        // li를 마지막으로 추가
         item.appendChild(newLi);
-        // 추가 후 다시 left 값을 업데이트
         rowItemLeng = item.querySelectorAll('li').length;
         additionalLeftValue = -78 * (rowItemLeng - 1);
         leftValue = defaultLeftValue + additionalLeftValue;
