@@ -63,7 +63,7 @@ section {
 .select-unit {
   position: absolute;
   top: 186px;
-  left: 367px;
+  left: 347px;
   width: 550px;
   height: 500px;
   display: none;
@@ -298,13 +298,26 @@ section {
   font-weight: 700;
 
   input {
-    border: 1px solid red;
-    width: 50%;
+    width: 40%;
     text-align: center;
     font-size: 26px;
     font-style: normal;
     font-weight: 700;
   }
+}
+
+.select-unit-txt {
+  min-width: 30%;
+  width: auto;
+  padding: 0 6px;
+  height: 40px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  background-image: url(../img/select-txt.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .left-box-2 .row li:not(:first-child) {
