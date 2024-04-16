@@ -29,13 +29,21 @@ window.addEventListener('script-loaded', function(ev) {
 
   // select-unit active
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
-  console.log(selectUnitTxt)
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
+  let rowItem = root.querySelectorAll('.left-box-2 .row');
+  
+  rowItem.forEach(function(item) {
+    let rowItemLeng = item.querySelectorAll('li').length;
+
+    let defaultLeftValue = 582;
+    let additionalLeftValue = -78 * (rowItemLeng - 1);
+    let leftValue = defaultLeftValue + additionalLeftValue;
+    selectUnit.style.left = leftValue + 'px';
+  })
 
   selectUnitTxt.forEach(function(item, num) {
     item.addEventListener('click', function() {
-      console.log(num)
       if(num == 0) {
         selectUnit.style.top = '186px';
       } else if(num == 1) {
