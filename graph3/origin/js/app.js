@@ -27,6 +27,37 @@ window.addEventListener('script-loaded', function(ev) {
   });
 
 
+  // select-unit active
+  let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
+  console.log(selectUnitTxt)
+  let selectUnit = root.querySelector('.select-unit');
+  let selectUnitItem = selectUnit.querySelectorAll('li');
+
+  selectUnitTxt.forEach(function(item) {
+    item.addEventListener('click', function() {
+       selectUnitTxt = item;
+       console.log(selectUnitTxt)
+      selectActive(selectUnitTxt);
+    })
+  })
+ 
+  function selectActive(selectItem) {
+    root.querySelector('#viewWrap').addEventListener('click', function(e) {
+      if (e.target == selectUnit || e.target == selectItem) {
+        selectUnit.classList.add('active');
+      } else {
+        selectUnit.classList.remove('active');
+      }
+    });
+    
+    selectUnitItem.forEach(function(i) {
+      i.addEventListener('click', function() {
+        selectUnitTxt.innerHTML = this.innerHTML;
+      })
+    })
+  }
+
+
   // 물결선 checked
   let checkBox = root.querySelector('.check-break');
 
