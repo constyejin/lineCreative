@@ -33,10 +33,15 @@ window.addEventListener('script-loaded', function(ev) {
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
 
-  selectUnitTxt.forEach(function(item) {
+  selectUnitTxt.forEach(function(item, num) {
     item.addEventListener('click', function() {
-       selectUnitTxt = item;
-       console.log(selectUnitTxt)
+      console.log(num)
+      if(num == 0) {
+        selectUnit.style.top = '186px';
+      } else if(num == 1) {
+        selectUnit.style.top = '246px';
+      }
+      selectUnitTxt = item;
       selectActive(selectUnitTxt);
     })
   })
@@ -51,7 +56,10 @@ window.addEventListener('script-loaded', function(ev) {
     });
     
     selectUnitItem.forEach(function(i) {
+      i.classList.remove('active');
+
       i.addEventListener('click', function() {
+        this.classList.add('active');
         selectUnitTxt.innerHTML = this.innerHTML;
       })
     })
