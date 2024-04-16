@@ -31,10 +31,6 @@ li {
   list-style: none;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 #viewWrap {
   display:flex; 
   justify-content:center; 
@@ -64,6 +60,61 @@ section {
 
 
 /* ----- left-box-1 ----- */
+.select-unit {
+  position: absolute;
+  top: 186px;
+  left: 367px;
+  width: 550px;
+  height: 500px;
+  display: none;
+  flex-wrap: wrap;
+  gap: 15px;
+  z-index: 10;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: #C4CBDD;
+}
+
+.select-unit.active {
+  display: flex;
+}
+
+.select-unit::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -38px;
+  transform: translateX(-50%);
+  border-top: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid #C4CBDD;
+  border-left: 20px solid transparent;
+}
+
+.select-unit li {
+  display: flex;
+  width: 90px;
+  height: 80px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 32px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.select-unit li.actvie {
+  color: #fff;
+  background-color: #000;
+}
+
 .left-box-1 {
   display: flex;
   justify-content: center;
@@ -73,12 +124,11 @@ section {
   position:absolute; 
   top: 47px;
   left: 27px;
-  width: 76px;
-  height: 76px;
+  cursor: pointer;
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 76px;
+    height: 76px;
     object-fit: contain;
   }
 }
@@ -87,11 +137,11 @@ section {
   position: absolute;
   top: 53px;
   left: 118px;
-
   width: 118px;
   height: 46px;
   border-radius: 23px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05) inset;
+  cursor: pointer;
 
   span {
     width: 100%;
@@ -169,6 +219,7 @@ section {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    cursor: pointer;
   }
 }
 
@@ -176,6 +227,12 @@ section {
   display: flex;
   align-items: center;
   margin-top: 24px;
+}
+
+.table-title > img {
+  width: 20px;
+  height: 44px;
+  object-fit: contain;
 }
 
 .table-title .title {
@@ -230,14 +287,24 @@ section {
 }
 
 .left-box-2 .row li:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 190px;
   height: 60px;
   padding: 10px;
-  text-align: center;
   font-size: 26px;
   font-style: normal;
   font-weight: 700;
-  line-height: 42px;
+
+  input {
+    border: 1px solid red;
+    width: 50%;
+    text-align: center;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+  }
 }
 
 .left-box-2 .row li:not(:first-child) {
@@ -290,6 +357,7 @@ section {
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url(../img/btn-donetable.png);
+  cursor: pointer;
 }
 
 .line {
@@ -384,6 +452,7 @@ section {
   height: 110px;
   background-size: contain;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .btn-graph:first-child {
@@ -398,8 +467,8 @@ section {
   background-image: url(../img/Status=Unselected-all.png);
 }
 
-.btn-graph:first-child.active {
-  background-image: url(../img/Status=selected.png);
+.btn-graph:last-child.active {
+  background-image: url(../img/Status=selected-all.png);
 }
 
 .input-list li {
@@ -434,6 +503,7 @@ section {
 .reset-copy-btn li {
   width: 70px;
   height: 76px;
+  cursor: pointer;
 
   img {
     width: 100%;
