@@ -195,18 +195,26 @@ window.addEventListener('script-loaded', function(ev) {
 
   // 물결선 checked
   let checkBox = root.querySelector('.check-break');
+  let checkBoxImg = checkBox.querySelector('.checkbox-img');
+  let inputCheck = checkBox.querySelector("input[type='checkbox']");
 
-  checkBox.addEventListener('click', function(e) {
+  function showWaveLine() {
+    inputCheck.checked = true;
+  }
+
+  function hideWaveLine() {
+    inputCheck.checked = false;
+    checkBoxImg.classList.remove('checked');
+  }
+  
+  checkBox.addEventListener('click', (e) => {
     e.preventDefault();
+    checkBoxImg.classList.toggle('checked');
 
-    this.querySelector('.checkbox-img').classList.toggle('checked');
-
-    let inputCheck = this.querySelector("input[type='checkbox']")
-
-    if(this.querySelector('.checkbox-img').classList.contains('checked')) {
-      inputCheck.checked = true;
+    if(checkBoxImg.classList.contains('checked')) {
+      showWaveLine();
     } else {
-      inputCheck.checked = false;
+      hideWaveLine();
     }
   })
 
@@ -242,8 +250,7 @@ window.addEventListener('script-loaded', function(ev) {
     hideTitle();
 
     // 물결선 초기화
-    checkBox.querySelector('.checkbox-img').classList.remove('checked');
-    checkBox.querySelector("input[type='checkbox']").checked = false;
+    hideWaveLine();
 	});
 });
 
