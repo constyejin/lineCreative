@@ -122,13 +122,17 @@ window.addEventListener('script-loaded', function(ev) {
     btnPlus.addEventListener('click', function() {
       if(clickCount < 9) {
         clickCount++;
-        console.log(clickCount)
       }
 
       if (rowItemLeng < 9) {
-        let newLi = document.createElement('li');
-        newLi.textContent = '';
-        item.appendChild(newLi);
+        let newItem = `
+          <li>
+            <input type="text">
+          </li>
+        `;
+
+        item.insertAdjacentHTML('beforeend', newItem);
+        
         rowItemLeng = item.querySelectorAll('li').length;
         additionalLeftValue = -78 * (rowItemLeng - 1);
         leftValue = defaultLeftValue + additionalLeftValue;
@@ -158,24 +162,33 @@ window.addEventListener('script-loaded', function(ev) {
   })
 
 
-  // Title 값 입력
+  // Title show / hide
   let titleInput = root.querySelector('.title input');
   let editIcon = root.querySelector('.title img');
   let graphTitle = root.querySelector('.graph-title .title');
 
-  titleInput.addEventListener('focus', function() {
+  function showTitle() {
+    editIcon.style.display = 'none';
+    graphTitle.querySelector('img').style.display = 'none';
+    graphTitle.querySelector('span').innerHTML = titleInput.value;
+  }
+
+  function hideTitle() {
+    titleInput.value = ''
+    editIcon.style.display = 'block';
+    graphTitle.querySelector('img').style.display = 'block';
+    graphTitle.querySelector('span').innerHTML = '';
+  }
+
+  titleInput.addEventListener('focus', () => {
     editIcon.style.display = 'none';
   });
 
-  titleInput.addEventListener('blur', function() {
+  titleInput.addEventListener('blur', () => {
     if (titleInput.value.trim() !== '') {
-      editIcon.style.display = 'none';
-      graphTitle.querySelector('img').style.display = 'none';
-      graphTitle.querySelector('span').innerHTML = titleInput.value;
+      showTitle();
     } else {
-      editIcon.style.display = 'block';
-      graphTitle.querySelector('img').style.display = 'block';
-      graphTitle.querySelector('span').innerHTML = '';
+      hideTitle();
     }
   });
 
@@ -183,12 +196,13 @@ window.addEventListener('script-loaded', function(ev) {
   // 물결선 checked
   let checkBox = root.querySelector('.check-break');
 
-  checkBox.addEventListener('click', function(e){
+  checkBox.addEventListener('click', function(e) {
     e.preventDefault();
 
     this.querySelector('.checkbox-img').classList.toggle('checked');
 
     let inputCheck = this.querySelector("input[type='checkbox']")
+
     if(this.querySelector('.checkbox-img').classList.contains('checked')) {
       inputCheck.checked = true;
     } else {
@@ -211,18 +225,22 @@ window.addEventListener('script-loaded', function(ev) {
     overlay.classList.remove('active');
   }
 
-  root.querySelector('.copy-btn').addEventListener('click', function() {
+  root.querySelector('.copy-btn').addEventListener('click', () => {
     openPopup();
   })
 
-  root.querySelector('.btn-exit').addEventListener('click', function() {
+  root.querySelector('.btn-exit').addEventListener('click', () => {
     closePopup();
   })
 
 
 
   // Reset
-	root.querySelector('.reset-btn').addEventListener('click', function() {
+  let resetBtn = root.querySelector('.reset-btn');
+	resetBtn.addEventListener('click', () => {
+    // 타이틀 초기화
+    hideTitle();
+
     // 물결선 초기화
     checkBox.querySelector('.checkbox-img').classList.remove('checked');
     checkBox.querySelector("input[type='checkbox']").checked = false;
