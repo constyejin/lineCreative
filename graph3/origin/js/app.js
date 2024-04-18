@@ -63,6 +63,8 @@ window.addEventListener('script-loaded', function(ev) {
     })
   }
 
+
+  // 팝업 포지션 변경 (기본 3개)
   selectUnitTxt.forEach(function(item, num) {
     item.addEventListener('click', function() {
       if(num == 0) {
@@ -71,13 +73,10 @@ window.addEventListener('script-loaded', function(ev) {
         selectUnit.style.top = '246px';
       }
       selectUnitTxt = item;
-      // console.log(selectUnitTxt)
       selectActive(item);
     })
   })
 
-
-  // 그래프 칸 수에 따라 팝업 포지션 변경 (기본 3개)
   rowItem.forEach(function(item) {
     let rowItemLeng = item.querySelectorAll('li').length;
 
@@ -159,7 +158,6 @@ window.addEventListener('script-loaded', function(ev) {
   })
 
 
-
   // Title 값 입력
   let titleInput = root.querySelector('.title input');
   let editIcon = root.querySelector('.title img');
@@ -224,9 +222,11 @@ window.addEventListener('script-loaded', function(ev) {
 
 
   // Reset
-	// root.querySelector('.reset-btn').addEventListener('click', function() {
-    
-	// });
+	root.querySelector('.reset-btn').addEventListener('click', function() {
+    // 물결선 초기화
+    checkBox.querySelector('.checkbox-img').classList.remove('checked');
+    checkBox.querySelector("input[type='checkbox']").checked = false;
+	});
 });
 
 
