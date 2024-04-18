@@ -88,8 +88,17 @@ window.addEventListener('script-loaded', function(ev) {
 
     let btnMinus = root.querySelector('.btn-minus');
     let btnPlus = root.querySelector('.btn-plus');
-  
+    let maxNotice = root.querySelector('.max-notice');
+    
+    let clickCount = 3;
+
     btnMinus.addEventListener('click', function() {
+      if (clickCount >= 9) {
+        clickCount -= 2;
+      } else  if(clickCount > 1) {
+        clickCount--;
+      }
+
       if (rowItemLeng > 2) {        
         item.querySelector('li:last-child').remove();
         rowItemLeng = item.querySelectorAll('li').length;
@@ -100,7 +109,8 @@ window.addEventListener('script-loaded', function(ev) {
 
       if(rowItemLeng < 9) {
         btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
-        root.querySelector('.max-notice').style.display = 'none';
+        maxNotice.style.opacity = '0';
+        selectUnit.classList.remove('last');
       }
 
       if(rowItemLeng <= 2) {
@@ -111,6 +121,11 @@ window.addEventListener('script-loaded', function(ev) {
 
     // 칸 플러스, 마이너스
     btnPlus.addEventListener('click', function() {
+      if(clickCount < 9) {
+        clickCount++;
+        console.log(clickCount)
+      }
+
       if (rowItemLeng < 9) {
         let newLi = document.createElement('li');
         newLi.textContent = '';
@@ -118,7 +133,7 @@ window.addEventListener('script-loaded', function(ev) {
         rowItemLeng = item.querySelectorAll('li').length;
         additionalLeftValue = -78 * (rowItemLeng - 1);
         leftValue = defaultLeftValue + additionalLeftValue;
-        selectUnit.style.left = leftValue + 'px';
+        selectUnit.style.left = leftValue + 'px'
       }
 
       if(rowItemLeng > 2) {
@@ -127,9 +142,22 @@ window.addEventListener('script-loaded', function(ev) {
 
       if (rowItemLeng === 9) {
         btnPlus.querySelector('img').src = new URL('../img/Status=Off-1.png', metaUrl).href;
+
+        if (selectUnit) {
+          selectUnit.classList.add('last');
+          selectUnit.style.left = '110px';
+        }
+      }
+
+      if(clickCount >= 9) {
+        maxNotice.style.opacity = '1';
+        setTimeout(function() {
+          maxNotice.style.opacity = '0';
+        },3000)
       }
     })
   })
+
 
 
   // Title 값 입력
@@ -149,6 +177,7 @@ window.addEventListener('script-loaded', function(ev) {
     } else {
       editIcon.style.display = 'block';
       graphTitle.querySelector('img').style.display = 'block';
+      graphTitle.querySelector('span').innerHTML = '';
     }
   });
 
