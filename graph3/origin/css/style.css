@@ -291,6 +291,14 @@ section {
 
 .left-box-2 .row li {
   margin: 0 1.5px;
+
+  input {
+    width: 80%;
+    text-align: center;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+  }
 }
 
 .left-box-2 .row-header li {
@@ -310,11 +318,9 @@ section {
   font-weight: 700;
 
   input {
-    width: 40%;
-    text-align: center;
+    width: 30%;
     font-size: 26px;
-    font-style: normal;
-    font-weight: 700;
+    margin-right: 4px;
   }
 }
 
