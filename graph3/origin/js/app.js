@@ -25,6 +25,7 @@ window.addEventListener('script-loaded', function(ev) {
     toggleFullScreen();
   });
 
+
   // select-unit active
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
   let selectUnit = root.querySelector('.select-unit');
@@ -32,7 +33,6 @@ window.addEventListener('script-loaded', function(ev) {
   let rowItem = root.querySelectorAll('.left-box-2 .row');
  
   function selectActive(selectItem) {
-    //  console.log(selectItem.innerHTML);
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
       if (e.target == selectUnit || e.target == selectItem) {
         selectUnit.classList.add('active');
@@ -98,8 +98,9 @@ window.addEventListener('script-loaded', function(ev) {
         selectUnit.style.left = leftValue + 'px';
       }
 
-      if(rowItemLeng < 8) {
+      if(rowItemLeng < 9) {
         btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
+        root.querySelector('.max-notice').style.display = 'none';
       }
 
       if(rowItemLeng <= 2) {
@@ -107,9 +108,10 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
 
+
     // 칸 플러스, 마이너스
     btnPlus.addEventListener('click', function() {
-      if (rowItemLeng < 8) {
+      if (rowItemLeng < 9) {
         let newLi = document.createElement('li');
         newLi.textContent = '';
         item.appendChild(newLi);
@@ -123,11 +125,32 @@ window.addEventListener('script-loaded', function(ev) {
         btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
       }
 
-      if (rowItemLeng === 8) {
+      if (rowItemLeng === 9) {
         btnPlus.querySelector('img').src = new URL('../img/Status=Off-1.png', metaUrl).href;
       }
     })
   })
+
+
+  // Title 값 입력
+  let titleInput = root.querySelector('.title input');
+  let editIcon = root.querySelector('.title img');
+  let graphTitle = root.querySelector('.graph-title .title');
+
+  titleInput.addEventListener('focus', function() {
+    editIcon.style.display = 'none';
+  });
+
+  titleInput.addEventListener('blur', function() {
+    if (titleInput.value.trim() !== '') {
+      editIcon.style.display = 'none';
+      graphTitle.querySelector('img').style.display = 'none';
+      graphTitle.querySelector('span').innerHTML = titleInput.value;
+    } else {
+      editIcon.style.display = 'block';
+      graphTitle.querySelector('img').style.display = 'block';
+    }
+  });
 
 
   // 물결선 checked
@@ -145,6 +168,36 @@ window.addEventListener('script-loaded', function(ev) {
       inputCheck.checked = false;
     }
   })
+
+
+  // 꺾은선그래프 자료 모음 팝업 open, close
+  let popup = root.querySelector('.popup');
+  let overlay = root.querySelector('.overlay');
+
+  function openPopup() {
+    popup.classList.add('active');
+    overlay.classList.add('active');
+  }
+
+  function closePopup() {
+    popup.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+
+  root.querySelector('.copy-btn').addEventListener('click', function() {
+    openPopup();
+  })
+
+  root.querySelector('.btn-exit').addEventListener('click', function() {
+    closePopup();
+  })
+
+
+
+  // Reset
+	// root.querySelector('.reset-btn').addEventListener('click', function() {
+    
+	// });
 });
 
 
