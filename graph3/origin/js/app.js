@@ -109,7 +109,7 @@ window.addEventListener('script-loaded', function(ev) {
 
       if(rowItemLeng < 9) {
         btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
-        maxNotice.style.opacity = '0';
+        maxNotice.style.display = 'none';
         selectUnit.classList.remove('last');
       }
 
@@ -150,9 +150,9 @@ window.addEventListener('script-loaded', function(ev) {
       }
 
       if(clickCount >= 9) {
-        maxNotice.style.opacity = '1';
+        maxNotice.style.display = 'block';
         setTimeout(function() {
-          maxNotice.style.opacity = '0';
+          maxNotice.style.display = 'none';
         },3000)
       }
     })
