@@ -30,6 +30,7 @@ window.addEventListener('script-loaded', function(ev) {
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
+  let rowItem = root.querySelectorAll('.left-box-2 .row');
  
   function selectActive(selectItem) {
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
@@ -76,27 +77,52 @@ window.addEventListener('script-loaded', function(ev) {
     })
   })
 
-  let rowItem = root.querySelectorAll('.left-box-2 .row');
-  let btnMinus = root.querySelector('.btn-minus');
-  let btnPlus = root.querySelector('.btn-plus');
-  let plusItem; 
-  let minusItem;
 
   rowItem.forEach((item) => {
     let rowItemLeng = item.querySelectorAll('li').length;
+    let maxNotice = root.querySelector('.max-notice');
 
     let defaultLeftValue = 582;
     let additionalLeftValue = -78 * (rowItemLeng - 1);
     let leftValue = defaultLeftValue + additionalLeftValue;
     selectUnit.style.left = leftValue + 'px';
 
-    
-    let maxNotice = root.querySelector('.max-notice');
-    let clickCount = 3;
+    let btnMinus = root.querySelector('.btn-minus');
+    let btnPlus = root.querySelector('.btn-plus');
+    let clickCount = 4;
 
-    plusItem = function () {
-      if(clickCount < 9) {
+    btnMinus.addEventListener('click', function() {
+      if (clickCount == 10) {
+        clickCount -= 2;
+      } else  if(clickCount > 1) {
+        clickCount--;
+      }
+
+      if (rowItemLeng > 2) {        
+        item.querySelector('li:last-child').remove();
+        rowItemLeng = item.querySelectorAll('li').length;
+        additionalLeftValue = -78 * (rowItemLeng - 1);
+        leftValue = defaultLeftValue + additionalLeftValue;
+        selectUnit.style.left = leftValue + 'px';
+      }
+
+      if(rowItemLeng < 9) {
+        btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
+        maxNotice.style.display = 'none';
+        selectUnit.classList.remove('last');
+      }
+
+      if(rowItemLeng <= 2) {
+        btnMinus.querySelector('img').src = new URL('../img/Status=Off.png', metaUrl).href;
+      }
+    })
+
+
+    // 칸 플러스, 마이너스
+    btnPlus.addEventListener('click', function() {
+      if(clickCount < 10) {
         clickCount++;
+        console.log(clickCount)
       }
 
       if (rowItemLeng < 9) {
@@ -127,139 +153,39 @@ window.addEventListener('script-loaded', function(ev) {
         }
       }
 
-      if(clickCount >= 9) {
+      if(clickCount >= 10) {
         maxNotice.style.display = 'block';
         setTimeout(function() {
           maxNotice.style.display = 'none';
         },3000)
       }
-    }
+    })
 
-    minusItem = function () {
-      if (clickCount >= 9) {
-        clickCount -= 2;
-      } else  if(clickCount > 1) {
-        clickCount--;
+    root.querySelector('.reset-btn').addEventListener('click', () => {
+      btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
+      btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
+
+      if (rowItemLeng > 4) {
+        while (rowItemLeng > 4) {
+          item.querySelector('li:last-child').remove(); 
+          rowItemLeng--; 
+          clickCount = 4;
+        }
+      } 
+      else if (rowItemLeng < 4) {
+        let diff = 4 - rowItemLeng;
+        console.log(diff)
+        for (let i = 0; i < diff; i++) {
+          let newItem = `
+            <li>
+              <input type="text">
+            </li>
+          `;
+          item.insertAdjacentHTML('beforeend', newItem);
+          clickCount = 4;
+        }
       }
-
-      if (rowItemLeng > 2) {        
-        item.querySelector('li:last-child').remove();
-        rowItemLeng = item.querySelectorAll('li').length;
-        additionalLeftValue = -78 * (rowItemLeng - 1);
-        leftValue = defaultLeftValue + additionalLeftValue;
-        selectUnit.style.left = leftValue + 'px';
-      }
-
-      if(rowItemLeng < 9) {
-        btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
-        maxNotice.style.display = 'none';
-        selectUnit.classList.remove('last');
-      }
-
-      if(rowItemLeng <= 2) {
-        btnMinus.querySelector('img').src = new URL('../img/Status=Off.png', metaUrl).href;
-      }
-    }
-  })
-
-
-  btnPlus.addEventListener('click', () => {
-    plusItem();
-  })
-
-  btnMinus.addEventListener('click', () => {
-    minusItem();
-  })
-
-
-
-
-
-
-  rowItem.forEach(function(item) {
-    // let rowItemLeng = item.querySelectorAll('li').length;
-
-    // let defaultLeftValue = 582;
-    // let additionalLeftValue = -78 * (rowItemLeng - 1);
-    // let leftValue = defaultLeftValue + additionalLeftValue;
-    // selectUnit.style.left = leftValue + 'px';
-
-    // let btnMinus = root.querySelector('.btn-minus');
-    // let btnPlus = root.querySelector('.btn-plus');
-    // let maxNotice = root.querySelector('.max-notice');
-    
-    // let clickCount = 3;
-
-    // btnMinus.addEventListener('click', function() {
-    //   if (clickCount >= 9) {
-    //     clickCount -= 2;
-    //   } else  if(clickCount > 1) {
-    //     clickCount--;
-    //   }
-
-    //   if (rowItemLeng > 2) {        
-    //     item.querySelector('li:last-child').remove();
-    //     rowItemLeng = item.querySelectorAll('li').length;
-    //     additionalLeftValue = -78 * (rowItemLeng - 1);
-    //     leftValue = defaultLeftValue + additionalLeftValue;
-    //     selectUnit.style.left = leftValue + 'px';
-    //   }
-
-    //   if(rowItemLeng < 9) {
-    //     btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
-    //     maxNotice.style.display = 'none';
-    //     selectUnit.classList.remove('last');
-    //   }
-
-    //   if(rowItemLeng <= 2) {
-    //     btnMinus.querySelector('img').src = new URL('../img/Status=Off.png', metaUrl).href;
-    //   }
-    // })
-
-
-    // // 칸 플러스, 마이너스
-    // btnPlus.addEventListener('click', function() {
-    //   if(clickCount < 9) {
-    //     clickCount++;
-    //   }
-
-    //   if (rowItemLeng < 9) {
-    //     let newItem = `
-    //       <li>
-    //         <input type="text">
-    //       </li>
-    //     `;
-
-    //     item.insertAdjacentHTML('beforeend', newItem);
-        
-    //     rowItemLeng = item.querySelectorAll('li').length;
-    //     additionalLeftValue = -78 * (rowItemLeng - 1);
-    //     leftValue = defaultLeftValue + additionalLeftValue;
-    //     selectUnit.style.left = leftValue + 'px'
-    //   }
-
-    //   if(rowItemLeng > 2) {
-    //     btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
-    //   }
-
-    //   if (rowItemLeng === 9) {
-    //     btnPlus.querySelector('img').src = new URL('../img/Status=Off-1.png', metaUrl).href;
-
-    //     if (selectUnit) {
-    //       selectUnit.classList.add('last');
-    //       selectUnit.style.left = '110px';
-    //     }
-    //   }
-
-    //   if(clickCount >= 9) {
-    //     maxNotice.style.display = 'block';
-    //     setTimeout(function() {
-    //       maxNotice.style.display = 'none';
-    //     },3000)
-    //   }
-    // })
-
-
+    })
   })
 
 
@@ -348,6 +274,7 @@ window.addEventListener('script-loaded', function(ev) {
   let resetBtn = root.querySelector('.reset-btn');
 
 	resetBtn.addEventListener('click', () => {
+    // defaultItem();
     // 타이틀 초기화
     hideTitle();
 
