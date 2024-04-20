@@ -58,7 +58,6 @@ window.addEventListener('script-loaded', function(ev) {
 
 
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
-  console.log(selectUnitTxt)
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
   let rowItem = root.querySelectorAll('.left-box-2 .row');
@@ -153,7 +152,6 @@ window.addEventListener('script-loaded', function(ev) {
     })
 
     btnPlus.addEventListener('click', function() {
-      console.log(leftValue)
       if(clickCount < 10) {
         clickCount++;
       }
