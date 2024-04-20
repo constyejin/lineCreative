@@ -26,34 +26,42 @@ window.addEventListener('script-loaded', function(ev) {
   });
 
 
+  let switchBtn = root.querySelector('.switch-btn');
+  let switchCheck = switchBtn.querySelector('input');
+  let sliderTxt = switchBtn.querySelector('.slider-txt');
+
+  let table1 = root.querySelector('.table-1');
+  let table2 = root.querySelector('.table-2');
+
+  switchBtn.addEventListener('click', () => {
+    if(!switchCheck.checked) {
+      switch1();
+    } else {
+      switch2();
+    }
+  })
+
+  function switch1() {
+    sliderTxt.innerHTML = '표1';
+    switchBtn.classList.remove('switch-2');
+    switchCheck.checked = false;
+    table2.classList.remove('active');
+    table1.classList.add('active');
+  }
+
+  function switch2() {
+    sliderTxt.innerHTML = '표2';
+    switchBtn.classList.add('switch-2');
+    table1.classList.remove('active');
+    table2.classList.add('active');
+  }
+
+
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
   console.log(selectUnitTxt)
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
   let rowItem = root.querySelectorAll('.left-box-2 .row');
-
-  let switchBtn = root.querySelector('.switch-btn');
-  let switchCheck = switchBtn.querySelector('input');
-  let sliderTxt = switchBtn.querySelector('.slider-txt');
-
-  switchBtn.addEventListener('click', () => {
-    if(!switchCheck.checked) {
-      table1();
-    } else {
-      table2();
-    }
-  })
-
-  function table1() {
-    sliderTxt.innerHTML = '표1';
-    switchBtn.classList.remove('switch-2');
-    switchCheck.checked = false;
-  }
-
-  function table2() {
-    sliderTxt.innerHTML = '표2';
-    switchBtn.classList.add('switch-2');
-  }
  
   function selectActive(selectItem) {
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
@@ -311,7 +319,7 @@ window.addEventListener('script-loaded', function(ev) {
   let resetBtn = root.querySelector('.reset-btn');
 
 	resetBtn.addEventListener('click', () => {
-    table1();
+    switch1();
 
     // 타이틀 초기화
     hideTitle();
