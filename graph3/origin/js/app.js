@@ -64,7 +64,6 @@ window.addEventListener('script-loaded', function(ev) {
     })
   }
 
-
   // 팝업 포지션 변경 (기본 3개)
   selectUnitTxt.forEach(function(item, num) {
     item.addEventListener('click', function() {      
@@ -163,6 +162,7 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelector('.reset-btn').addEventListener('click', () => {
       btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
       btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
+      selectUnit.style.left = 348 + 'px';
 
       let rowLi = item.querySelectorAll('li');
       rowLi.forEach((li) => {
