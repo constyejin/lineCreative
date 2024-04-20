@@ -83,8 +83,8 @@ window.addEventListener('script-loaded', function(ev) {
     let rowItemLeng = item.querySelectorAll('li').length;
     let maxNotice = root.querySelector('.max-notice');
 
-    let defaultLeftValue = 582;
-    let additionalLeftValue = -78 * (rowItemLeng - 1);
+    let defaultLeftValue = 344;
+    let additionalLeftValue = -72 * (rowItemLeng - 4);
     let leftValue = defaultLeftValue + additionalLeftValue;
     selectUnit.style.left = leftValue + 'px';
 
@@ -93,6 +93,7 @@ window.addEventListener('script-loaded', function(ev) {
     let clickCount = 4;
 
     btnMinus.addEventListener('click', function() {
+      console.log(leftValue)
       if (clickCount == 10) {
         clickCount -= 2;
       } else  if(clickCount > 1) {
@@ -102,7 +103,7 @@ window.addEventListener('script-loaded', function(ev) {
       if (rowItemLeng > 2) {        
         item.querySelector('li:last-child').remove();
         rowItemLeng = item.querySelectorAll('li').length;
-        additionalLeftValue = -78 * (rowItemLeng - 1);
+        additionalLeftValue = -78 * (rowItemLeng - 4);
         leftValue = defaultLeftValue + additionalLeftValue;
         selectUnit.style.left = leftValue + 'px';
       }
@@ -119,6 +120,7 @@ window.addEventListener('script-loaded', function(ev) {
     })
 
     btnPlus.addEventListener('click', function() {
+      console.log(leftValue)
       if(clickCount < 10) {
         clickCount++;
       }
@@ -133,7 +135,7 @@ window.addEventListener('script-loaded', function(ev) {
         item.insertAdjacentHTML('beforeend', newItem);
         
         rowItemLeng = item.querySelectorAll('li').length;
-        additionalLeftValue = -78 * (rowItemLeng - 1);
+        additionalLeftValue = -78 * (rowItemLeng - 4);
         leftValue = defaultLeftValue + additionalLeftValue;
         selectUnit.style.left = leftValue + 'px'
       }
@@ -162,7 +164,7 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelector('.reset-btn').addEventListener('click', () => {
       btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
       btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
-      selectUnit.style.left = 348 + 'px';
+      selectUnit.style.left = 344 + 'px';
 
       let rowLi = item.querySelectorAll('li');
       rowLi.forEach((li) => {
