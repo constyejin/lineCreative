@@ -31,13 +31,24 @@ window.addEventListener('script-loaded', function(ev) {
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
   let rowItem = root.querySelectorAll('.left-box-2 .row');
+
  
   function selectActive(selectItem) {
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
       if (e.target == selectUnit || e.target == selectItem) {
         selectUnit.classList.add('active');
+
+        selectUnitItem.forEach((i) => {
+          if(selectItem.innerHTML == i.innerHTML) {
+            i.classList.add('active');
+          }
+        })
       } else {
         selectUnit.classList.remove('active');
+
+        selectUnitItem.forEach((i) => {
+          i.classList.remove('active');
+        })
       }
     });
     
@@ -49,16 +60,6 @@ window.addEventListener('script-loaded', function(ev) {
 
         this.classList.add('active');
         selectUnitTxt.innerHTML = this.innerHTML;
-
-
-        // if (i.innerHTML === selectItem.innerHTML) {
-        //   this.classList.add('active');
-        // } else {
-        //   selectUnitItem.forEach(function(item) {
-        //     item.classList.remove('active');
-        //   });
-        // }
-
       })
     })
   }
@@ -66,10 +67,11 @@ window.addEventListener('script-loaded', function(ev) {
 
   // 팝업 포지션 변경 (기본 3개)
   selectUnitTxt.forEach(function(item, num) {
-    item.addEventListener('click', function() {
+    item.addEventListener('click', function() {      
       if(num == 0) {
         selectUnit.style.top = '186px';
-      } else if(num == 1) {
+
+      } else if(num === 1) {
         selectUnit.style.top = '246px';
       }
       selectUnitTxt = item;
@@ -77,7 +79,7 @@ window.addEventListener('script-loaded', function(ev) {
     })
   })
 
-
+  // 칸 플러스, 마이너스, 초기화
   rowItem.forEach((item) => {
     let rowItemLeng = item.querySelectorAll('li').length;
     let maxNotice = root.querySelector('.max-notice');
@@ -117,12 +119,9 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
 
-
-    // 칸 플러스, 마이너스
     btnPlus.addEventListener('click', function() {
       if(clickCount < 10) {
         clickCount++;
-        console.log(clickCount)
       }
 
       if (rowItemLeng < 9) {
@@ -165,6 +164,15 @@ window.addEventListener('script-loaded', function(ev) {
       btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
       btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
 
+      let rowLi = item.querySelectorAll('li');
+      rowLi.forEach((li) => {
+        let rowInput = li.querySelector('input');
+        let rowSpan = li.querySelector('span');
+
+        rowInput.value = '';
+        rowSpan ? rowSpan.innerHTML = '' : null;
+      });
+
       if (rowItemLeng > 4) {
         while (rowItemLeng > 4) {
           item.querySelector('li:last-child').remove(); 
@@ -174,7 +182,6 @@ window.addEventListener('script-loaded', function(ev) {
       } 
       else if (rowItemLeng < 4) {
         let diff = 4 - rowItemLeng;
-        console.log(diff)
         for (let i = 0; i < diff; i++) {
           let newItem = `
             <li>
