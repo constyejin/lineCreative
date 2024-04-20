@@ -26,12 +26,25 @@ window.addEventListener('script-loaded', function(ev) {
   });
 
 
-  // select-unit active
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
+  console.log(selectUnitTxt)
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
   let rowItem = root.querySelectorAll('.left-box-2 .row');
 
+  
+
+  function tableSwitch() {
+    
+  }
+
+  function table1() {
+    
+  }
+
+  function table2() {
+
+  }
  
   function selectActive(selectItem) {
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
@@ -69,10 +82,13 @@ window.addEventListener('script-loaded', function(ev) {
     item.addEventListener('click', function() {      
       if(num == 0) {
         selectUnit.style.top = '186px';
-
       } else if(num === 1) {
         selectUnit.style.top = '246px';
-      }
+      } else if(num === 2) {
+        selectUnit.style.top = '176px';
+      } else if(num === 3) {
+        selectUnit.style.top = '216px';
+      } 
       selectUnitTxt = item;
       selectActive(item);
     })
@@ -168,10 +184,13 @@ window.addEventListener('script-loaded', function(ev) {
 
       let rowLi = item.querySelectorAll('li');
       rowLi.forEach((li) => {
-        let rowInput = li.querySelector('input');
+        let rowInput = li.querySelectorAll('input');
         let rowSpan = li.querySelector('span');
 
-        rowInput.value = '';
+        rowInput.forEach((input) => {
+          input.value = '';
+        })
+        // rowInput.value = '';
         rowSpan ? rowSpan.innerHTML = '' : null;
       });
 
@@ -196,7 +215,7 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
   })
-
+  
 
   // Title show / hide
   let titleInput = root.querySelector('.title input');
