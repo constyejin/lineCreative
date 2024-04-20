@@ -146,6 +146,7 @@ section {
   left: 118px;
   width: 118px;
   height: 46px;
+  border-radius: 23px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05) inset;
   cursor: pointer;
 
@@ -173,8 +174,8 @@ section {
 
 .slider-txt {
   position: absolute;
-  top: 0;
   left: 16px;
+  color: #222;
 }
 
 .slider {
@@ -184,10 +185,23 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: #D3E4A4;
   -webkit-transition: .4s;
   transition: .4s;
-  background: #D3E4A4;
   border-radius: 23px;
+}
+
+.slide-img {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  height: 52px;
+  width: 52px;
+  object-fit: contain;
+}
+
+.switch-btn.switch-2  .slider {
+  background-color: #809A3A;
 }
 
 .slider::before {
@@ -203,16 +217,22 @@ section {
   transition: .4s;
 }
 
-input:checked + .slider {
+.switch-btn.switch-2 .slider {
   background-color: #809A3A;
 }
 
-input:checked + .slider::before {
+.switch-btn.switch-2 .slider::before {
   left: 52px;
   background-image: url(../img/switch-2.png);
   -webkit-transform: translateX(-52px);
   -ms-transform: translateX(-52px);
   transform: translateX(-52px);
+}
+
+.switch-btn.switch-2 .slider-txt {
+  position: absolute;
+  left: 56px;
+  color: #fff;
 }
 
 
