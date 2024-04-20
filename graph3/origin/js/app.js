@@ -32,18 +32,27 @@ window.addEventListener('script-loaded', function(ev) {
   let selectUnitItem = selectUnit.querySelectorAll('li');
   let rowItem = root.querySelectorAll('.left-box-2 .row');
 
-  
+  let switchBtn = root.querySelector('.switch-btn');
+  let switchCheck = switchBtn.querySelector('input');
+  let sliderTxt = switchBtn.querySelector('.slider-txt');
 
-  function tableSwitch() {
-    
-  }
+  switchBtn.addEventListener('click', () => {
+    if(!switchCheck.checked) {
+      table1();
+    } else {
+      table2();
+    }
+  })
 
   function table1() {
-    
+    sliderTxt.innerHTML = '표1';
+    switchBtn.classList.remove('switch-2');
+    switchCheck.checked = false;
   }
 
   function table2() {
-
+    sliderTxt.innerHTML = '표2';
+    switchBtn.classList.add('switch-2');
   }
  
   function selectActive(selectItem) {
@@ -302,7 +311,8 @@ window.addEventListener('script-loaded', function(ev) {
   let resetBtn = root.querySelector('.reset-btn');
 
 	resetBtn.addEventListener('click', () => {
-    // defaultItem();
+    table1();
+
     // 타이틀 초기화
     hideTitle();
 
