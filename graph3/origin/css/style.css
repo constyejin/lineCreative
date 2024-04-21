@@ -541,10 +541,6 @@ section {
   justify-content: center;
 }
 
-.graph-area {
-  margin-top: 20px;
-}
-
 .check-break {
   position: absolute;
   bottom: 0;
@@ -553,6 +549,7 @@ section {
   align-items: center;
   width: 136px;
   height: 38px;
+  cursor: pointer;
 }
 
 .check-break input[type="checkbox"] {
@@ -581,6 +578,21 @@ section {
 
 .btn-graph-list {
   margin-top: 20px;
+}
+
+.graph-area {
+  position: relative;
+  margin-top: 20px;
+}
+
+.wave-line {
+  position: absolute;
+  bottom: 147px;
+  display:  none;
+}
+
+.wave-line.active {
+  display: block;
 }
 
 
