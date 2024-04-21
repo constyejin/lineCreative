@@ -47,6 +47,10 @@ window.addEventListener('script-loaded', function(ev) {
     switchCheck.checked = false;
     table2.classList.remove('active');
     table1.classList.add('active');
+    root.querySelector('.left-box-3').style.marginTop = '14px';
+    root.querySelector('.line').style.marginTop = '40px';
+    root.querySelectorAll('.table-title')[1].style.marginTop = '24px';
+    root.querySelector('.graph-area').style.marginTop = '20px';
   }
 
   function switch2() {
@@ -54,6 +58,12 @@ window.addEventListener('script-loaded', function(ev) {
     switchBtn.classList.add('switch-2');
     table1.classList.remove('active');
     table2.classList.add('active');
+    root.querySelector('.left-box-3').style.marginTop = '8px';
+    root.querySelector('.line').style.marginTop = '36px';
+    root.querySelectorAll('.table-title')[1].style.marginTop = '0';
+    root.querySelector('.graph-area').style.marginTop = '8px';
+
+
   }
 
 
@@ -267,14 +277,17 @@ window.addEventListener('script-loaded', function(ev) {
   let checkBox = root.querySelector('.check-break');
   let checkBoxImg = checkBox.querySelector('.checkbox-img');
   let inputCheck = checkBox.querySelector("input[type='checkbox']");
+  let waveLine = root.querySelector('.wave-line');
 
   function showWaveLine() {
     inputCheck.checked = true;
+    waveLine.classList.add('active');
   }
 
   function hideWaveLine() {
     inputCheck.checked = false;
     checkBoxImg.classList.remove('checked');
+    waveLine.classList.remove('active');
   }
   
   checkBox.addEventListener('click', (e) => {
