@@ -216,8 +216,11 @@
                 </div>
 
                 <div class="graph-area">
-                  <img class="wave-line" src="./img/break.png" alt="">
-                  <svg width="1208" height="548" viewBox="0 0 1208 548" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <img class="wave-line" src="./img/break.png" alt="물결선 이미지">
+                  
+                  <canvas id="myChart"></canvas>
+
+                  <!-- <svg width="1208" height="548" viewBox="0 0 1208 548" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_121_2799)">
                     <rect x="4" y="4" width="1200" height="540" rx="10" fill="#F2F5E7"/>
                     <g clip-path="url(#clip1_121_2799)">
@@ -268,7 +271,7 @@
                     <rect width="1130" height="440" fill="white" transform="translate(74 4)"/>
                     </clipPath>
                     </defs>
-                  </svg>
+                  </svg> -->
                 </div>
               </div>
             </div>
@@ -395,6 +398,8 @@
       
       <link rel="stylesheet" type="text/css" href="font/nanumsquareround.css">
       <link rel="stylesheet" type="text/css" href="css/style.css">
+
+      <script type="module" src="./js/chart.js"></script>
       <script type="module" src="js/app.js"></script>
     </template>
       
