@@ -15,7 +15,6 @@ class YourComponent extends HTMLElement {
 	}
 
 	connectedCallback() {		
-		
 		(async () => {
 			this._uniq = Date.now() + '';
 			const dom = document;
