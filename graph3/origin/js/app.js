@@ -379,7 +379,7 @@ window.addEventListener('script-loaded', function(ev) {
       {
         label: '가격1',
         fill: false,
-        data: [ null,],
+        data: [ null, 20000, 45100],
         borderColor: '#EF848C', // 선 색상 
         pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
         borderWidth: 6, // 선 두께 
@@ -401,7 +401,20 @@ window.addEventListener('script-loaded', function(ev) {
       // }
     ],
   }
-  
+
+  let stepSize = updateStepSize(57000);
+
+  function updateStepSize(fiveRow) {
+    let stepCount = 8;
+    let stepSize = [];
+
+    for (let i = 1; i <= stepCount; i++) {
+      stepSize.push(fiveRow * i);
+    }
+    return stepSize;
+  }
+  console.log(stepSize); 
+
 
   function chartDraw() {
     new Chart(myCt, {
@@ -423,7 +436,7 @@ window.addEventListener('script-loaded', function(ev) {
         scales: {
           x : {
             // min : 0,
-            // max : 9,
+            // max : 8,
             grid : {
               display : true,
               drawBorder: false,
@@ -431,8 +444,8 @@ window.addEventListener('script-loaded', function(ev) {
               borderWidth: 2,
             },
             ticks: {
-              display : true,
-              padding : 30,
+              display : false,
+              // padding : 30,
               color : '#222',
               font : {
                 size : 28,
@@ -445,9 +458,9 @@ window.addEventListener('script-loaded', function(ev) {
           y : {
             min : 0,
             max : 456000,
-            beginAtZero: false,
+            // beginAtZero: true,
             grid : {
-              display : true,
+              display : false,
               drawBorder: false,
               // color: 'red', 
               // borderWidth: 2,
@@ -455,8 +468,8 @@ window.addEventListener('script-loaded', function(ev) {
             },
             ticks: {
               display : true,
-              padding : 20,
-              stepSize : 57000,
+              // padding : 20,
+              stepSize : stepSize[0],
               fontSize: 28, 
               color : '#222',
               font : {
