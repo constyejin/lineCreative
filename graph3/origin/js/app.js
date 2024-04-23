@@ -445,7 +445,6 @@ window.addEventListener('script-loaded', function(ev) {
             },
             ticks: {
               display : false,
-              // padding : 30,
               color : '#222',
               font : {
                 size : 28,
@@ -462,13 +461,9 @@ window.addEventListener('script-loaded', function(ev) {
             grid : {
               display : false,
               drawBorder: false,
-              // color: 'red', 
-              // borderWidth: 2,
-              borderDash: [5, 5], 
             },
             ticks: {
-              display : true,
-              // padding : 20,
+              display : false,
               stepSize : stepSize[0],
               fontSize: 28, 
               color : '#222',
