@@ -1,5 +1,4 @@
 import {setCommonRoot, autoScale, toggleFullScreen} from './common.js';
-// import anime from "./anime.js";
 
 var metaUrl = import.meta.url;
 var root = null;
@@ -302,6 +301,184 @@ window.addEventListener('script-loaded', function(ev) {
   })
 
 
+  // Chart.js
+  let myCt = root.getElementById('myChart').getContext('2d');
+  console.log(myCt)
+
+  // let myChart = new Chart(myCt, {
+  //   type: 'line',
+  //   data: {
+  //     labels: [null, '2020', '2021', '2022', '2023', '2024', '2025',  null],
+  //     datasets: [{
+  //       data: [null, 2, 5, 3, 7, 1, 3, null],
+  //       borderColor: '#EF848C', // 선 색상 
+  //       pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
+  //       borderWidth: 6, // 선 두께 
+  //       pointRadius: 7, // 데이터 포인트 반지름 
+  //       pointBorderWidth : 0,
+  //     }]
+  //   },
+  //   options: {
+  //     responsive: false,
+
+  //     plugins: {
+  //       legend: {
+  //         display: false,
+  //       }
+  //     },
+
+  //     scales : {
+  //       x : {
+  //         grid : {
+  //           display : true,
+  //           drawBorder: false,
+  //           color: '#ACAFBF', 
+  //           borderWidth: 2,
+  //         },
+  //         ticks: {
+  //           display : true,
+  //           color : '#222',
+  //           font : {
+  //             size : 28,
+  //             weight : 'bold',
+  //             family : 'NanumSquareRound'
+  //           }
+  //         } 
+  //       },
+
+  //       y : {
+  //         min : 0,
+  //         max : 10,
+  //         grid : {
+  //           display : true,
+  //           drawBorder: false,
+  //           // color: '#ACAFBF', 
+  //           // borderWidth: 2,
+  //           // borderDash: [5, 5], 
+  //         },
+  //         ticks: {
+  //           display : true,
+  //           fontSize: 28, 
+  //           color : '#222',
+  //           font : {
+  //             size : 28,
+  //             weight : 'bold',
+  //             family : 'NanumSquareRound'
+  //           }
+  //         },        
+  //       },         
+  //     },
+  //   }
+  // });
+
+
+
+  let chartData = {
+    labels: [null, '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', null],
+    datasets: [
+      {
+        label: '가격1',
+        fill: false,
+        data: [ null,],
+        borderColor: '#EF848C', // 선 색상 
+        pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
+        borderWidth: 6, // 선 두께 
+        pointRadius: 7, // 데이터 포인트 반지름 
+        pointBorderWidth : 0,
+      },
+      // {
+      //   label: '가격2',
+      //   fill: false,
+      //   data: [
+      //       5500, 5500, 5500, 5500, 5500, 5500, 5500
+      //   ],
+      //   pointRadius: [
+      //       3, 3, 3, 3, 3, 3, 3
+      //   ],
+      //   backgroundColor: 'skyblue',
+      //   borderColor: 'skyblue',
+      //   borderWidth: 2,
+      // }
+    ],
+  }
+  
+
+  function chartDraw() {
+    new Chart(myCt, {
+      type: 'line', 
+      data: chartData,
+      options: {
+        responsive: false,
+
+        legend: {
+          display: false,
+        },
+
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+
+        scales: {
+          x : {
+            // min : 0,
+            // max : 9,
+            grid : {
+              display : true,
+              drawBorder: false,
+              color: '#ACAFBF', 
+              borderWidth: 2,
+            },
+            ticks: {
+              display : true,
+              padding : 30,
+              color : '#222',
+              font : {
+                size : 28,
+                weight : 'bold',
+                family : 'NanumSquareRound'
+              },
+            } 
+          },
+
+          y : {
+            min : 0,
+            max : 456000,
+            beginAtZero: false,
+            grid : {
+              display : true,
+              drawBorder: false,
+              // color: 'red', 
+              // borderWidth: 2,
+              borderDash: [5, 5], 
+            },
+            ticks: {
+              display : true,
+              padding : 20,
+              stepSize : 57000,
+              fontSize: 28, 
+              color : '#222',
+              font : {
+                size : 28,
+                weight : 'bold',
+                family : 'NanumSquareRound'
+              },
+            },  
+          },
+        }
+      }
+    });
+  }
+
+
+  chartDraw();
+  // root.querySelector('.graph-all').addEventListener('click', () => {
+  //   chartDraw();
+  // })
+
+
+
   // 꺾은선그래프 자료 모음 팝업 open, close
   let popup = root.querySelector('.popup');
   let overlay = root.querySelector('.overlay');
@@ -323,7 +500,6 @@ window.addEventListener('script-loaded', function(ev) {
   root.querySelector('.btn-exit').addEventListener('click', () => {
     closePopup();
   })
-
 
 
   // 전체 초기화
