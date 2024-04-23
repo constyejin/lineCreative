@@ -100,9 +100,12 @@ window.addEventListener('script-loaded', function(ev) {
 
         this.classList.add('active');
         selectUnitTxt.innerHTML = this.innerHTML;
+        unitTxtX.innerHTML = root.querySelector('.unit-txt-x').innerHTML;
+        unitTxtY.innerHTML = root.querySelector('.unit-txt-y').innerHTML;
       })
     })
   }
+
 
 
   // 팝업 포지션 변경 (기본 3개)
