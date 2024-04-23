@@ -469,6 +469,9 @@ window.addEventListener('script-loaded', function(ev) {
 	resetBtn.addEventListener('click', () => {
     // switch1();
 
+    unitTxtX.innerHTML = '';
+    unitTxtY.innerHTML = '';
+
     xTxt.innerHTML = '';
     yTxt.innerHTML = '';
     // 타이틀 초기화
