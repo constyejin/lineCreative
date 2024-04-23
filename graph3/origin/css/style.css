@@ -407,7 +407,7 @@ section {
 
 .left-box-2 .row:not(:first-child) li:not(:first-child) {
   position: relative;
-  padding: 8px 10px;
+  padding: 8px 0;
   border-top: 2px solid #E5F0C7;
   border-bottom: 4px solid #E5F0C7;
   background: #FFF;
@@ -597,10 +597,33 @@ section {
   /* border: 1px solid red; */
 }
 
+.unit-txt span {
+  display: inline-block;
+  /* min-width: 30%; */
+  width: 60px;
+  padding: 0 6px;
+  height: 40px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  color: #222;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  background-image: url(../img/select-txt.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .graph-y-left {
   width: 200px;
   flex-shrink: 0;
   border-right: 3px solid #83894C;
+
+  span {
+    margin-left: 4px;
+  }
 }
 
 .graph-y-right canvas {
@@ -648,8 +671,15 @@ section {
 }
 
 .graph-x-right {
+  position: relative;
   width: 1000px;
   background-color: #E5F0C7;;
+
+  span {
+    position: absolute;
+    right: 4px;
+    bottom: 8px;
+  }
 }
 
 .wave-line {
