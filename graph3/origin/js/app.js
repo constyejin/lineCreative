@@ -100,8 +100,15 @@ window.addEventListener('script-loaded', function(ev) {
 
         this.classList.add('active');
         selectUnitTxt.innerHTML = this.innerHTML;
-        unitTxtX.innerHTML = root.querySelector('.unit-txt-x').innerHTML;
-        unitTxtY.innerHTML = root.querySelector('.unit-txt-y').innerHTML;
+
+        let unitTxt = root.querySelectorAll('.select-unit-txt')
+        if(table1.classList.contains('active')) {
+          unitTxtX.innerHTML = unitTxt[0].innerHTML;
+          unitTxtY.innerHTML = unitTxt[1].innerHTML;
+        } else if(table2.classList.contains('active')) {
+          unitTxtX.innerHTML = unitTxt[2].innerHTML;
+          unitTxtY.innerHTML = unitTxt[3].innerHTML;
+        }
       })
     })
   }
