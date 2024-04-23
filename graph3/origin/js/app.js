@@ -61,8 +61,6 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelector('.line').style.marginTop = '36px';
     root.querySelectorAll('.table-title')[1].style.marginTop = '0';
     root.querySelector('.graph-area').style.marginTop = '8px';
-
-
   }
 
 
@@ -70,6 +68,11 @@ window.addEventListener('script-loaded', function(ev) {
   let selectUnit = root.querySelector('.select-unit');
   let selectUnitItem = selectUnit.querySelectorAll('li');
   let rowItem = root.querySelectorAll('.left-box-2 .row');
+      
+  let unitTxt = root.querySelectorAll('.unit-txt');
+  let unitTxtX = unitTxt[0].querySelector('span');
+  let unitTxtY = unitTxt[1].querySelector('span');
+
  
   function selectActive(selectItem) {
     root.querySelector('#viewWrap').addEventListener('click', function(e) {
@@ -83,7 +86,6 @@ window.addEventListener('script-loaded', function(ev) {
         })
       } else {
         selectUnit.classList.remove('active');
-
         selectUnitItem.forEach((i) => {
           i.classList.remove('active');
         })
@@ -102,9 +104,10 @@ window.addEventListener('script-loaded', function(ev) {
     })
   }
 
+
   // 팝업 포지션 변경 (기본 3개)
-  selectUnitTxt.forEach(function(item, num) {
-    item.addEventListener('click', function() {      
+  selectUnitTxt.forEach(function(item, num) {  
+    item.addEventListener('click', function() {  
       if(num == 0) {
         selectUnit.style.top = '186px';
       } else if(num === 1) {
@@ -118,6 +121,23 @@ window.addEventListener('script-loaded', function(ev) {
       selectActive(item);
     })
   })
+
+
+  // X, Y 단위값 그래프에 적용
+  let val = root.querySelectorAll('.val');
+  let xTxt = root.querySelector('.graph-x-txt');
+  let yTxt = root.querySelector('.graph-y-txt');
+
+  val.forEach((item, num) => {
+    item.addEventListener('blur', () => {
+      if(num % 2 == 0) {
+        xTxt.innerHTML = item.value;
+      } else {
+        yTxt.innerHTML = item.value;
+      }
+    })
+  })
+  
 
   // 칸 플러스, 마이너스, 초기화
   rowItem.forEach((item) => {
@@ -214,7 +234,6 @@ window.addEventListener('script-loaded', function(ev) {
         rowInput.forEach((input) => {
           input.value = '';
         })
-        // rowInput.value = '';
         rowSpan ? rowSpan.innerHTML = '' : null;
       });
 
@@ -413,7 +432,6 @@ window.addEventListener('script-loaded', function(ev) {
     }
     return stepSize;
   }
-  console.log(stepSize); 
 
 
   function chartDraw() {
@@ -516,6 +534,8 @@ window.addEventListener('script-loaded', function(ev) {
 	resetBtn.addEventListener('click', () => {
     switch1();
 
+    xTxt.innerHTML = '';
+    yTxt.innerHTML = '';
     // 타이틀 초기화
     hideTitle();
 
