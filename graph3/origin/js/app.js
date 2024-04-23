@@ -324,74 +324,6 @@ window.addEventListener('script-loaded', function(ev) {
   let myCt = root.getElementById('myChart').getContext('2d');
   console.log(myCt)
 
-  // let myChart = new Chart(myCt, {
-  //   type: 'line',
-  //   data: {
-  //     labels: [null, '2020', '2021', '2022', '2023', '2024', '2025',  null],
-  //     datasets: [{
-  //       data: [null, 2, 5, 3, 7, 1, 3, null],
-  //       borderColor: '#EF848C', // 선 색상 
-  //       pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
-  //       borderWidth: 6, // 선 두께 
-  //       pointRadius: 7, // 데이터 포인트 반지름 
-  //       pointBorderWidth : 0,
-  //     }]
-  //   },
-  //   options: {
-  //     responsive: false,
-
-  //     plugins: {
-  //       legend: {
-  //         display: false,
-  //       }
-  //     },
-
-  //     scales : {
-  //       x : {
-  //         grid : {
-  //           display : true,
-  //           drawBorder: false,
-  //           color: '#ACAFBF', 
-  //           borderWidth: 2,
-  //         },
-  //         ticks: {
-  //           display : true,
-  //           color : '#222',
-  //           font : {
-  //             size : 28,
-  //             weight : 'bold',
-  //             family : 'NanumSquareRound'
-  //           }
-  //         } 
-  //       },
-
-  //       y : {
-  //         min : 0,
-  //         max : 10,
-  //         grid : {
-  //           display : true,
-  //           drawBorder: false,
-  //           // color: '#ACAFBF', 
-  //           // borderWidth: 2,
-  //           // borderDash: [5, 5], 
-  //         },
-  //         ticks: {
-  //           display : true,
-  //           fontSize: 28, 
-  //           color : '#222',
-  //           font : {
-  //             size : 28,
-  //             weight : 'bold',
-  //             family : 'NanumSquareRound'
-  //           }
-  //         },        
-  //       },         
-  //     },
-  //   }
-  // });
-
-
-
   let chartData = {
     labels: [null, '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', null],
     datasets: [
@@ -498,10 +430,10 @@ window.addEventListener('script-loaded', function(ev) {
   }
 
 
-  chartDraw();
-  // root.querySelector('.graph-all').addEventListener('click', () => {
-  //   chartDraw();
-  // })
+  // chartDraw();
+  root.querySelector('.graph-all').addEventListener('click', () => {
+    chartDraw();
+  })
 
 
 
@@ -532,7 +464,7 @@ window.addEventListener('script-loaded', function(ev) {
   let resetBtn = root.querySelector('.reset-btn');
 
 	resetBtn.addEventListener('click', () => {
-    switch1();
+    // switch1();
 
     xTxt.innerHTML = '';
     yTxt.innerHTML = '';
