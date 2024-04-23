@@ -599,11 +599,9 @@ section {
 
 .unit-txt span {
   display: inline-block;
-  /* min-width: 30%; */
-  width: 60px;
+  width: 70px;
   padding: 0 6px;
   height: 40px;
-  cursor: pointer;
   text-align: center;
   line-height: 40px;
   color: #222;
