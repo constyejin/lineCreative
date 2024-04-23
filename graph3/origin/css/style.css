@@ -16,7 +16,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: NanumSquareRound;
+  font-family: 'NanumSquareRound', sans-serif;
   color: var(--Color-Text-Default, #222);
 }
 
@@ -583,6 +583,7 @@ section {
 .graph-area {
   position: relative;
   margin-top: 20px;
+  /* border: 5px solid red; */
 }
 
 .wave-line {
@@ -593,6 +594,13 @@ section {
 
 .wave-line.active {
   display: block;
+}
+
+#myChart {
+  position: absolute;
+  bottom: 40px;
+  left: 66px;
+  /* border: 2px solid red; */
 }
 
 
