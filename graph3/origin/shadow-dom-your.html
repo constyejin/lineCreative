@@ -103,7 +103,7 @@
                 <div class="table-1 active">
                   <ul class="row row-header">
                     <li>
-                      <input type="text" value="연도">
+                      <input type="text" value="">
                       <span class="select-unit-txt"></span>
                     </li>
                     <li>
@@ -119,7 +119,7 @@
 
                   <ul class="row">
                     <li>
-                      <input type="text" value="일수">
+                      <input type="text" value="">
                       <span class="select-unit-txt"></span>
                     </li>
                     <li>
@@ -218,15 +218,16 @@
                 <div class="graph-area">
                   <img class="wave-line" src="./img/break.png" alt="물결선 이미지">
                   
-                  <canvas id="myChart"></canvas>
 
-                  <!-- <svg width="1208" height="548" viewBox="0 0 1208 548" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <canvas id="myChart" width="1120" height="506"></canvas>
+
+                 <svg width="1200" height="548" viewBox="0 0 1208 548" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_121_2799)">
                     <rect x="4" y="4" width="1200" height="540" rx="10" fill="#F2F5E7"/>
                     <g clip-path="url(#clip1_121_2799)">
                     <g clip-path="url(#clip2_121_2799)">
                     <rect width="1000" height="440" transform="translate(204 4)" fill="white"/>
-                    <path d="M1204 27.1579L204 27.1578" stroke="#ACAFBF" stroke-dasharray="2 2"/>
+                    <!-- <path d="M1204 27.1579L204 27.1578" stroke="#ACAFBF" stroke-dasharray="2 2"/>
                     <path d="M1204 50.3158L204 50.3157" stroke="#ACAFBF" stroke-dasharray="2 2"/>
                     <path d="M1204 73.4737L204 73.4736" stroke="#ACAFBF" stroke-dasharray="2 2"/>
                     <path d="M1204 96.6316L204 96.6315" stroke="#ACAFBF" stroke-width="2"/>
@@ -249,7 +250,7 @@
                     <path d="M537.333 4V544" stroke="#ACAFBF" stroke-width="2"/>
                     <path d="M704 4V544" stroke="#ACAFBF" stroke-width="2"/>
                     <path d="M870.667 4V544" stroke="#ACAFBF" stroke-width="2"/>
-                    <path d="M1037.33 4V544" stroke="#ACAFBF" stroke-width="2"/>
+                    <path d="M1037.33 4V544" stroke="#ACAFBF" stroke-width="2"/> -->
                     </g>
                     </g>
                     <path d="M204 444H1204V544H4L54 494H154L204 444Z" fill="#E5F0C7"/>
@@ -271,15 +272,15 @@
                     <rect width="1130" height="440" fill="white" transform="translate(74 4)"/>
                     </clipPath>
                     </defs>
-                  </svg> -->
+                  </svg>
                 </div>
               </div>
             </div>
             
             <div class="right-box">
               <ul class="btn-graph-list">
-                <li class="btn-graph active"></li>
-                <li class="btn-graph"></li>
+                <li class="btn-graph graph-one active"></li>
+                <li class="btn-graph graph-all"></li>
               </ul>
               <div class="right-line"></div>
 
@@ -395,14 +396,14 @@
           </section>
         </div>
       </div>
-      
+
       <link rel="stylesheet" type="text/css" href="font/nanumsquareround.css">
       <link rel="stylesheet" type="text/css" href="css/style.css">
 
       <script type="module" src="./js/chart.js"></script>
       <script type="module" src="js/app.js"></script>
     </template>
-      
+
     <script type="module" src="./shadow-dom-your.js"></script>
     <!-- Page js -->
   </body>
