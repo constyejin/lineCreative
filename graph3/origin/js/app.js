@@ -40,10 +40,10 @@ window.addEventListener('script-loaded', function(ev) {
     }
   })
 
-  function switch1() {
+  function switch1(check) {
     sliderTxt.innerHTML = '표1';
+    switchCheck.disabled = check;
     switchBtn.classList.remove('switch-2');
-    switchCheck.checked = false;
     table2.classList.remove('active');
     table1.classList.add('active');
     root.querySelector('.left-box-3').style.marginTop = '14px';
@@ -52,8 +52,23 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelector('.graph-area').style.marginTop = '20px';
   }
 
+  let table1ValX = root.querySelectorAll('.table-1 .row-header li');
+  let valuesX1 = [];
+
+  table1ValX.forEach((li, num) => {
+    if(num !== 0) {
+     li.querySelector('input').addEventListener('blur', function() {
+        valuesX1.push(this.value);
+        console.log(valuesX1);
+     })
+    }
+  })
+
+
+
   function switch2() {
     sliderTxt.innerHTML = '표2';
+    // switchCheck.disabled = check;
     switchBtn.classList.add('switch-2');
     table1.classList.remove('active');
     table2.classList.add('active');
@@ -163,6 +178,8 @@ window.addEventListener('script-loaded', function(ev) {
     let btnPlus = root.querySelector('.btn-plus');
     let clickCount = 4;
 
+
+
     btnMinus.addEventListener('click', function() {
       console.log(leftValue)
       if (clickCount == 10) {
@@ -268,13 +285,13 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
   })
-  
 
   // Title show / hide
   let titleInput = root.querySelector('.title input');
   let editIcon = root.querySelector('.title img');
   let graphTitle = root.querySelector('.graph-title .title');
 
+  let graph1Title = ['']
   function showTitle() {
     editIcon.style.display = 'none';
     graphTitle.querySelector('img').style.display = 'none';
@@ -298,6 +315,8 @@ window.addEventListener('script-loaded', function(ev) {
     } else {
       hideTitle();
     }
+
+
   });
 
 
@@ -340,7 +359,7 @@ window.addEventListener('script-loaded', function(ev) {
       {
         label: '가격1',
         fill: false,
-        data: [ null, 20000, 45100],
+        data: [null, 20000, 45100],
         borderColor: '#EF848C', // 선 색상 
         pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
         borderWidth: 6, // 선 두께 
@@ -404,7 +423,7 @@ window.addEventListener('script-loaded', function(ev) {
               borderWidth: 2,
             },
             ticks: {
-              display : false,
+              display : true,
               color : '#222',
               font : {
                 size : 28,
