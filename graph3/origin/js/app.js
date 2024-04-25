@@ -359,7 +359,7 @@ window.addEventListener('script-loaded', function(ev) {
       {
         label: '가격1',
         fill: false,
-        data: [null, 20000, 45100],
+        data: [null, 10, 18, 20],
         borderColor: '#EF848C', // 선 색상 
         pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
         borderWidth: 6, // 선 두께 
@@ -382,7 +382,7 @@ window.addEventListener('script-loaded', function(ev) {
     ],
   }
 
-  let stepSize = updateStepSize(57000);
+  let stepSize = updateStepSize(50);
 
   function updateStepSize(fiveRow) {
     let stepCount = 8;
@@ -424,25 +424,37 @@ window.addEventListener('script-loaded', function(ev) {
             },
             ticks: {
               display : true,
+              position: 'bottom',
               color : '#222',
               font : {
                 size : 28,
                 weight : 'bold',
                 family : 'NanumSquareRound'
               },
-            } 
+              callback: function(value, index, values) {
+                console.log(value)
+                // 마지막 눈금 레이블에만 공백 문자열을 추가
+                // if (index === values.length - 1) {
+                //   return '\n\n' + value;  // '\n'은 줄 바꿈 문자입니다
+                // }
+                const labels = this.chart.data.labels;
+                return labels[index];
+              },
+            }
           },
 
           y : {
             min : 0,
-            max : 456000,
+            max : 600,
             // beginAtZero: true,
             grid : {
               display : false,
               drawBorder: false,
             },
             ticks: {
-              display : false,
+              display : true,
+              position: 'left', 
+              padding: 20,
               stepSize : stepSize[0],
               fontSize: 28, 
               color : '#222',
