@@ -200,7 +200,7 @@ section {
   object-fit: contain;
 }
 
-.switch-btn.switch-2  .slider {
+.switch-btn.switch-2 .slider {
   background-color: #809A3A;
 }
 
@@ -594,7 +594,6 @@ section {
 .graph-y {
   display: flex;
   height: 440px;
-  /* border: 1px solid red; */
 }
 
 .unit-txt span {
@@ -625,15 +624,15 @@ section {
 }
 
 .graph-y-right canvas {
-  width: 1000px;
+  /* width: 100px; */
   background-color: #fff;
-  /* border: 1px solid red; */
+  /* border: 3px solid red; */
 }
 
 .grapy-x {
   display: flex;
   height: 100px;
-  border-top: 3px solid #83894C;;
+  border-top: 3px solid #83894C;
 }
 
 .graph-x-left {
@@ -671,13 +670,26 @@ section {
 .graph-x-right {
   position: relative;
   width: 1000px;
-  background-color: #E5F0C7;;
+  background-color: #E5F0C7;
 
   span {
     position: absolute;
     right: 4px;
     bottom: 8px;
   }
+}
+
+.value-y, 
+.value-x {
+  display: flex;
+}
+
+.value-x {
+  position: absolute;
+  bottom : 20px;
+  right: 50%;
+  /* z-index: 999; */
+  border: 1px solid red;
 }
 
 .wave-line {
