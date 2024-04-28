@@ -394,7 +394,7 @@ window.addEventListener('script-loaded', function(ev) {
     return stepSize;
   }
 
-
+  var yTicks = [];
   function chartDraw() {
     new Chart(myCt, {
       type: 'line', 
@@ -423,8 +423,9 @@ window.addEventListener('script-loaded', function(ev) {
               borderWidth: 2,
             },
             ticks: {
-              display : true,
+              display : false,
               position: 'bottom',
+              padding: 30,
               color : '#222',
               font : {
                 size : 28,
@@ -432,11 +433,6 @@ window.addEventListener('script-loaded', function(ev) {
                 family : 'NanumSquareRound'
               },
               callback: function(value, index, values) {
-                console.log(value)
-                // 마지막 눈금 레이블에만 공백 문자열을 추가
-                // if (index === values.length - 1) {
-                //   return '\n\n' + value;  // '\n'은 줄 바꿈 문자입니다
-                // }
                 const labels = this.chart.data.labels;
                 return labels[index];
               },
@@ -454,7 +450,7 @@ window.addEventListener('script-loaded', function(ev) {
             ticks: {
               display : true,
               position: 'left', 
-              padding: 20,
+              padding: 0,
               stepSize : stepSize[0],
               fontSize: 28, 
               color : '#222',
@@ -463,18 +459,52 @@ window.addEventListener('script-loaded', function(ev) {
                 weight : 'bold',
                 family : 'NanumSquareRound'
               },
+              afterBuildTicks: function(scale, ticks) {
+                // 첫 번째와 마지막 tick 값을 제외
+                yTicks = ticks.slice(1, ticks.length - 1);
+              }
             },  
           },
         }
       }
     });
+
+    // chartData에서 x축 labels 값을 가져옴
+    var labels = chartData.labels;
+    labels = labels.slice(1, labels.length - 1);
+    // HTML 요소를 추가할 부모 요소 선택
+    var parentElement = root.querySelector(".value-x");
+
+    // 각 레이블에 대해 HTML 요소 추가
+    for (var i = 0; i < labels.length; i++) {
+      // 새로운 span 요소의 HTML 코드 생성
+      var newElementHTML = '<li>' + labels[i] + '</li>';
+
+      // span 요소의 HTML 코드를 부모 요소에 추가
+      parentElement.insertAdjacentHTML('beforeend', newElementHTML);
+    }
+
+
+// HTML 요소를 추가할 부모 요소 선택
+var parentElementY = document.querySelector(".graph-y-left");
+
+// 각 y tick에 대해 HTML 요소 추가
+for (var i = 0; i < yTicks.length; i++) {
+  // 새로운 span 요소의 HTML 코드 생성
+  var newElementHTML = '<li>' + yTicks[i] + '</;>';
+
+  // span 요소의 HTML 코드를 부모 요소에 추가
+  parentElementY.insertAdjacentHTML('beforeend', newElementHTML);
+}
+
+
   }
 
 
-  // chartDraw();
-  root.querySelector('.graph-all').addEventListener('click', () => {
-    chartDraw();
-  })
+  chartDraw();
+  // root.querySelector('.graph-all').addEventListener('click', () => {
+  //   chartDraw();
+  // })
 
 
 
