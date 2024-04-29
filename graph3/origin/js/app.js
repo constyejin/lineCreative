@@ -351,34 +351,20 @@ window.addEventListener('script-loaded', function(ev) {
 
   // Chart.js
   let myCt = root.getElementById('myChart').getContext('2d');
-  console.log(myCt)
 
   let chartData = {
     labels: [null, '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', null],
     datasets: [
       {
-        label: '가격1',
+        label: '그래프1',
         fill: false,
-        data: [null, 315219, 223123, 64422],
+        data: [null, 315219, 223123, 64422,],
         borderColor: '#EF848C', // 선 색상 
         pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
         borderWidth: 6, // 선 두께 
         pointRadius: 7, // 데이터 포인트 반지름 
         pointBorderWidth : 0,
-      },
-      // {
-      //   label: '가격2',
-      //   fill: false,
-      //   data: [
-      //       5500, 5500, 5500, 5500, 5500, 5500, 5500
-      //   ],
-      //   pointRadius: [
-      //       3, 3, 3, 3, 3, 3, 3
-      //   ],
-      //   backgroundColor: 'skyblue',
-      //   borderColor: 'skyblue',
-      //   borderWidth: 2,
-      // }
+      }
     ],
   }
 
@@ -436,7 +422,7 @@ window.addEventListener('script-loaded', function(ev) {
             min : 0,
             max : 399000,
             beginAtZero: true,
-            
+
             grid : {
               display : true,
               drawBorder: false,
@@ -472,16 +458,16 @@ window.addEventListener('script-loaded', function(ev) {
     var parentElementY = root.querySelector(".value-y");
 
     for (var i = 0; i < labelsY.length; i++) {
-        var newElementHTML = '<li>' + labelsY[i].value + '</li>';
-        parentElementY.insertAdjacentHTML('beforeend', newElementHTML);
+      var newElementHTML = '<li>' + labelsY[i].value + '</li>';
+      parentElementY.insertAdjacentHTML('beforeend', newElementHTML);
     }
   }
 
 
-  chartDraw();
-  // root.querySelector('.graph-all').addEventListener('click', () => {
-  //   chartDraw();
-  // })
+  // chartDraw();
+  root.querySelector('.graph-all').addEventListener('click', () => {
+    chartDraw();
+  })
 
 
 
