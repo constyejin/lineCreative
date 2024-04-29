@@ -66,7 +66,6 @@ window.addEventListener('script-loaded', function(ev) {
 
 
   // 표1 첫번째 행 입력값 valuesX1 배열에 저장 
-  // let tableVal =  root.querySelectorAll('.row-header li');
   let table1ValX = root.querySelectorAll('.table-1 .row-header li');
   let tableRow1 = root.querySelectorAll('.table-1 .row')[1].querySelectorAll('li');
   let valuesX1 = [];
@@ -74,34 +73,24 @@ window.addEventListener('script-loaded', function(ev) {
   let lastBlurredElement = null;
 
 
+  function addBlurEventToElements(elements, values, lastBlurredElement) {
+    elements.forEach((li, num) => {
+      let inputElement = li.querySelector('input');
+
+      if(num !== 0) {
+        inputElement.addEventListener('blur', function() {
+          if(this.value !== '') {
+            lastBlurredElement = inputElement;
+            values[num - 1] = this.value;
+          }
+        });
+      }
+    });
+  }
+
   function updateTable1ValX() {
-    table1ValX.forEach((li, num) => {
-      let inputElement = li.querySelector('input');
-
-      if(num !== 0) {
-        inputElement.addEventListener('blur', function() {
-          if(this.value !== '') {
-            lastBlurredElement = inputElement;
-            valuesX1[num - 1] = this.value;
-            console.log(valuesX1)
-          }
-        });
-      }
-    });
-
-    tableRow1.forEach((li, num) => {
-      let inputElement = li.querySelector('input');
-
-      if(num !== 0) {
-        inputElement.addEventListener('blur', function() {
-          if(this.value !== '') {
-            lastBlurredElement = inputElement;
-            valuesRow1[num - 1] = this.value;
-            console.log(valuesRow1)
-          }
-        });
-      }
-    });
+    addBlurEventToElements(table1ValX, valuesX1, lastBlurredElement);
+    addBlurEventToElements(tableRow1, valuesRow1, lastBlurredElement);
   }
 
   updateTable1ValX();
