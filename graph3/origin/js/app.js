@@ -42,7 +42,7 @@ window.addEventListener('script-loaded', function(ev) {
 
   function switch1(check) {
     sliderTxt.innerHTML = '표1';
-    switchCheck.disabled = check;
+    // switchCheck.disabled = check;
     switchBtn.classList.remove('switch-2');
     table2.classList.remove('active');
     table1.classList.add('active');
@@ -51,20 +51,6 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelectorAll('.table-title')[1].style.marginTop = '24px';
     root.querySelector('.graph-area').style.marginTop = '20px';
   }
-
-  let table1ValX = root.querySelectorAll('.table-1 .row-header li');
-  let valuesX1 = [];
-
-  table1ValX.forEach((li, num) => {
-    if(num !== 0) {
-     li.querySelector('input').addEventListener('blur', function() {
-        valuesX1.push(this.value);
-        console.log(valuesX1);
-     })
-    }
-  })
-
-
 
   function switch2() {
     sliderTxt.innerHTML = '표2';
@@ -77,6 +63,48 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelectorAll('.table-title')[1].style.marginTop = '0';
     root.querySelector('.graph-area').style.marginTop = '8px';
   }
+
+
+  // 표1 첫번째 행 입력값 valuesX1 배열에 저장 
+  // let tableVal =  root.querySelectorAll('.row-header li');
+  let table1ValX = root.querySelectorAll('.table-1 .row-header li');
+  let tableRow1 = root.querySelectorAll('.table-1 .row')[1].querySelectorAll('li');
+  let valuesX1 = [];
+  let valuesRow1 = [];
+  let lastBlurredElement = null;
+
+
+  function updateTable1ValX() {
+    table1ValX.forEach((li, num) => {
+      let inputElement = li.querySelector('input');
+
+      if(num !== 0) {
+        inputElement.addEventListener('blur', function() {
+          if(this.value !== '') {
+            lastBlurredElement = inputElement;
+            valuesX1[num - 1] = this.value;
+            console.log(valuesX1)
+          }
+        });
+      }
+    });
+
+    tableRow1.forEach((li, num) => {
+      let inputElement = li.querySelector('input');
+
+      if(num !== 0) {
+        inputElement.addEventListener('blur', function() {
+          if(this.value !== '') {
+            lastBlurredElement = inputElement;
+            valuesRow1[num - 1] = this.value;
+            console.log(valuesRow1)
+          }
+        });
+      }
+    });
+  }
+
+  updateTable1ValX();
 
 
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
@@ -181,7 +209,6 @@ window.addEventListener('script-loaded', function(ev) {
 
 
     btnMinus.addEventListener('click', function() {
-      console.log(leftValue)
       if (clickCount == 10) {
         clickCount -= 2;
       } else  if(clickCount > 1) {
@@ -205,6 +232,8 @@ window.addEventListener('script-loaded', function(ev) {
       if(rowItemLeng <= 2) {
         btnMinus.querySelector('img').src = new URL('../img/Status=Off.png', metaUrl).href;
       }
+
+      updateTable1ValX();
     })
 
     btnPlus.addEventListener('click', function() {
@@ -246,6 +275,8 @@ window.addEventListener('script-loaded', function(ev) {
           maxNotice.style.display = 'none';
         },3000)
       }
+
+      updateTable1ValX();
     })
 
     root.querySelector('.reset-btn').addEventListener('click', () => {
@@ -499,6 +530,7 @@ window.addEventListener('script-loaded', function(ev) {
 
 	resetBtn.addEventListener('click', () => {
     // switch1();
+    valuesX1 = [];
 
     unitTxtX.innerHTML = '';
     unitTxtY.innerHTML = '';
