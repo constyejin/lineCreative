@@ -359,7 +359,7 @@ window.addEventListener('script-loaded', function(ev) {
       {
         label: '가격1',
         fill: false,
-        data: [null, 10, 18, 20],
+        data: [null, 315219, 223123, 64422],
         borderColor: '#EF848C', // 선 색상 
         pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
         borderWidth: 6, // 선 두께 
@@ -382,7 +382,7 @@ window.addEventListener('script-loaded', function(ev) {
     ],
   }
 
-  let stepSize = updateStepSize(50);
+  let stepSize = updateStepSize(57000);
 
   function updateStepSize(fiveRow) {
     let stepCount = 8;
@@ -394,9 +394,9 @@ window.addEventListener('script-loaded', function(ev) {
     return stepSize;
   }
 
-  var yTicks = [];
+
   function chartDraw() {
-    new Chart(myCt, {
+    let chart = new Chart(myCt, {
       type: 'line', 
       data: chartData,
       options: {
@@ -409,7 +409,7 @@ window.addEventListener('script-loaded', function(ev) {
         plugins: {
           legend: {
             display: false,
-          }
+          },
         },
 
         scales: {
@@ -424,14 +424,7 @@ window.addEventListener('script-loaded', function(ev) {
             },
             ticks: {
               display : false,
-              position: 'bottom',
-              padding: 30,
               color : '#222',
-              font : {
-                size : 28,
-                weight : 'bold',
-                family : 'NanumSquareRound'
-              },
               callback: function(value, index, values) {
                 const labels = this.chart.data.labels;
                 return labels[index];
@@ -441,63 +434,47 @@ window.addEventListener('script-loaded', function(ev) {
 
           y : {
             min : 0,
-            max : 600,
-            // beginAtZero: true,
+            max : 399000,
+            beginAtZero: true,
+            
             grid : {
-              display : false,
+              display : true,
               drawBorder: false,
             },
             ticks: {
-              display : true,
-              position: 'left', 
-              padding: 0,
+              display : false,
               stepSize : stepSize[0],
-              fontSize: 28, 
-              color : '#222',
-              font : {
-                size : 28,
-                weight : 'bold',
-                family : 'NanumSquareRound'
+              callback: function(value, index, values) {
+                return value;
               },
-              afterBuildTicks: function(scale, ticks) {
-                // 첫 번째와 마지막 tick 값을 제외
-                yTicks = ticks.slice(1, ticks.length - 1);
-              }
             },  
           },
-        }
+        },
       }
     });
 
-    // chartData에서 x축 labels 값을 가져옴
-    var labels = chartData.labels;
-    labels = labels.slice(1, labels.length - 1);
-    // HTML 요소를 추가할 부모 요소 선택
+    // chartData에서 labels 값 .value-x 에 추가
+    var labelsX = chartData.labels;
+    labelsX = labelsX.slice(1, labelsX.length - 1);
+
     var parentElement = root.querySelector(".value-x");
 
-    // 각 레이블에 대해 HTML 요소 추가
-    for (var i = 0; i < labels.length; i++) {
-      // 새로운 span 요소의 HTML 코드 생성
-      var newElementHTML = '<li>' + labels[i] + '</li>';
-
-      // span 요소의 HTML 코드를 부모 요소에 추가
+    for (var i = 0; i < labelsX.length; i++) {
+      var newElementHTML = '<li>' + labelsX[i] + '</li>';
       parentElement.insertAdjacentHTML('beforeend', newElementHTML);
     }
 
 
-// HTML 요소를 추가할 부모 요소 선택
-var parentElementY = document.querySelector(".graph-y-left");
+    // y축 value 값 .value-y 에 추가
+    let labelsY = chart.scales.y.ticks;
+    labelsY = labelsY.slice().reverse();
 
-// 각 y tick에 대해 HTML 요소 추가
-for (var i = 0; i < yTicks.length; i++) {
-  // 새로운 span 요소의 HTML 코드 생성
-  var newElementHTML = '<li>' + yTicks[i] + '</;>';
+    var parentElementY = root.querySelector(".value-y");
 
-  // span 요소의 HTML 코드를 부모 요소에 추가
-  parentElementY.insertAdjacentHTML('beforeend', newElementHTML);
-}
-
-
+    for (var i = 0; i < labelsY.length; i++) {
+        var newElementHTML = '<li>' + labelsY[i].value + '</li>';
+        parentElementY.insertAdjacentHTML('beforeend', newElementHTML);
+    }
   }
 
 
