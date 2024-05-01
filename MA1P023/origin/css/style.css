@@ -172,7 +172,7 @@ section {
   height: 100%;
   display: block;
   position: absolute;
-  left: 0px;
+  left: -0.5px;
 }
 
 .puzzle-piece-slot[data-placeholder-inverse="false"] .puzzle-piece::before {
@@ -265,7 +265,7 @@ section {
 .puzzle-piece .rotate-holder img {
   position: absolute;
   left: -8.5px;
-  top: 13px;
+  top: 13.6px;
   width: 166px;
   height: 166px;
   transform-origin: 50% 50%;
