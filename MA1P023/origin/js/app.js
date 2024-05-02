@@ -175,7 +175,6 @@ function onClickDoneButton() {
   var incorrectPieces = [];
 
   pieces.forEach((p, i) => {
-    console.log(p)
     // answer slot
     var answerSlot = p.parentElement;
     var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
@@ -190,8 +189,12 @@ function onClickDoneButton() {
     // 정답일 경우 조각 드래그 X
     pieces.forEach(piece => {
       piece.draggable = false;
+      console.log(piece);
+      piece.querySelector('img').style.cursor = 'not-allowed';
     });
+
     root.querySelector('#correct-answer-bg').classList.add('correct-answer');
+
   } else {
     // 오답
     hideDoneButton();
