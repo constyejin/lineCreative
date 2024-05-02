@@ -184,22 +184,26 @@ function onClickDoneButton() {
       incorrectPieces.push(p);
   });
 
+  pieces.forEach(piece => {
+    piece.querySelector('img').style.cursor = 'pointer';
+  });
+
   if (incorrectPieces.length == 0) {
     // 정답
     // 정답일 경우 조각 드래그 X
     pieces.forEach(piece => {
       piece.draggable = false;
-      console.log(piece);
       piece.querySelector('img').style.cursor = 'not-allowed';
     });
 
     root.querySelector('#correct-answer-bg').classList.add('correct-answer');
+    hideDoneButton();
 
   } else {
     // 오답
     hideDoneButton();
     root.querySelector('#correct-answer-bg').classList.remove('correct-answer');
-    
+
     incorrectPieces.forEach(p => {
       resetPiecePosition(p);
     });
