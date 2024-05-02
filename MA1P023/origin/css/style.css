@@ -277,7 +277,7 @@ section {
 }
 
 .answer-slot img {
-  cursor: auto !important;
+  cursor: pointer;
 }
 
 .puzzle-drag-area .page {
