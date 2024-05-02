@@ -130,13 +130,14 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
            var posY = rect.top + (rect.height / 2);
            var dist = calcDistance(touchX, posX, touchY, posY);
            dropzone.distanceFromTouch = dist;
-           root.querySelector('#btn-rotate-area').classList.add('active');
+        //    root.querySelector('#btn-rotate-area').classList.add('active');
         });
 
         dropzones.sort((a,b) => a.distanceFromTouch > b.distanceFromTouch ? 1 : -1);
         var closestDropzone = dropzones[0];
 
         if (!closestDropzone.hasAttribute('force-check-dropzone') && option.useClosest) {
+            // root.querySelector('#btn-rotate-area').classList.remove('active');
             if (closestDropzone.distanceFromTouch <= (option.allowDistance * (100 / scale) )) {
                 onDroppedCallback(closestDropzone, dropzones);
             }
@@ -152,7 +153,6 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
             touchY >= areaTop && touchY <= areaBottom) {
             // 드롭 영역 내에 드롭되었을 때 실행할 코드 작성
             onDroppedCallback(closestDropzone);
-            root.querySelector('#btn-rotate-area').classList.remove('active');
         }
       }
     }
