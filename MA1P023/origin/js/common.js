@@ -37,29 +37,35 @@ export function getScale() {
 }
 
 export function toggleFullScreen() {
-    var doc = document;
-    var docEl = root.firstElementChild;
-  
-    var requestFullScreen = doc.documentElement.requestFullscreen || doc.mozRequestFullScreen || doc.webkitRequestFullScreen || doc.msRequestFullscreen;
-    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-  
-    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-      requestFullScreen.call(docEl);
-      // 전체화면 이미지로 변경
-      root.querySelector('#fullScreenButton > img').src = new URL('../img/btn-fullscreen-off.png', metaUrl).href;
-      if(scaleTotalV==0){
-        //   resetAnimation();
-        //   restartAnimation();
-      }
-    } else {
-      cancelFullScreen.call(doc);
-      // 일반 이미지로 변경
-      root.querySelector('#fullScreenButton > img').src = new URL('../img/btn-fullscreen-on.png', metaUrl);
-      if(scaleTotalV==0){
-        //   resetAnimation();
-        //   restartAnimation();
-      }
+  var doc = document;
+  var docEl = root.firstElementChild;
+
+  var requestFullScreen = doc.documentElement.requestFullscreen || doc.mozRequestFullScreen || doc.webkitRequestFullScreen || doc.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(docEl);
+    // 전체화면 이미지로 변경
+    root.querySelector('#fullScreenButton > img').src = new URL('../img/btn-fullscreen-off.png', metaUrl).href;
+    if(scaleTotalV==0){
+      //   resetAnimation();
+      //   restartAnimation();
     }
+  } else {
+    cancelFullScreen.call(doc);
+    // 일반 이미지로 변경
+    root.querySelector('#fullScreenButton > img').src = new URL('../img/btn-fullscreen-on.png', metaUrl);
+    if(scaleTotalV==0){
+      //   resetAnimation();
+      //   restartAnimation();
+    }
+  }
+
+  doc.addEventListener('fullscreenchange', function() {
+    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+      root.querySelector('#fullScreenButton > img').src = new URL('../img/btn-fullscreen-on.png', metaUrl);
+    }
+  });
 }
 
 export function calcDistance(x1, x2, y1, y2) {
@@ -249,7 +255,6 @@ export function createDraggable(targetEl, onDroppedCallback, option = {useCloses
     targetEl.addEventListener('dragend', e => {
         previewEl.remove();
         endDrag(e.clientX, e.clientY);
-                
     });
     // desktop end
 }
