@@ -90,6 +90,11 @@ function init() {
 
     element.addEventListener('dragend', () => {
       element.classList.remove('dragging');
+      // console.log(element)
+      if(element.classList.contains('selected')) {
+        showRotateArea();
+
+      }
     });
   });
 
@@ -105,6 +110,7 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   var answerPanel = dropArea.querySelector('.answer-panel');
 
   if (closestDropzone === dragArea) {
+    // piece.classList.add('selected');
     resetPiecePosition(piece);
     return;
   }
@@ -169,6 +175,7 @@ function onClickDoneButton() {
   var incorrectPieces = [];
 
   pieces.forEach((p, i) => {
+    console.log(p)
     // answer slot
     var answerSlot = p.parentElement;
     var isCorrectSlot = i == answerSlot.getAttribute('data-correct-index');
@@ -224,8 +231,11 @@ function allowDrop(event) {
   event.preventDefault();
 }
 
+
+
 function showRotateArea() {
   var selectedPieceIndex = Array.from(pieces).findIndex(p => p === selectedPiece);
+
   var posX = selectedPieceIndex % 8 < 4 ? 200 : 360;
   var posY = 40 + (140 * (selectedPieceIndex % 4));
   var rotateArea = root.querySelector('#btn-rotate-area');
@@ -234,6 +244,7 @@ function showRotateArea() {
   rotateArea.style.left = (posX) + 'px';
   rotateArea.style.top = (posY) + 'px';
 }
+
 
 function hideRotateArea() {
   var rotateArea = root.querySelector('#btn-rotate-area');
