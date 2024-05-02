@@ -98,6 +98,10 @@ section {
   height: 50px;
 }
 
+.btn-done.active {
+  animation: pulse 0.5s infinite alternate;
+}
+
 .view_mode img,
 .reset_btn img,
 .btn-done img {
@@ -447,6 +451,11 @@ section {
   display: block !important;
   animation-duration: 1s;
   animation-name: correctAnswerAni;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
 }
 
 @keyframes correctAnswerAni {
