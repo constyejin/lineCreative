@@ -193,6 +193,7 @@ function onClickDoneButton() {
     pieces.forEach(piece => {
       piece.draggable = false;
       piece.querySelector('img').style.cursor = 'not-allowed';
+      piece.style.pointerEvents = 'none'
     });
 
     root.querySelector('#correct-answer-bg').classList.add('correct-answer');
@@ -213,12 +214,15 @@ function resetPiecePosition(piece) {
   piece.orgSlot.appendChild(piece);
 }
 
+
 function setSelectedPiece(piece) {
   pieces.forEach(p => p.classList.remove('selected'));
+
   if (piece != null) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
-      hideDoneButton();
+      // hideDoneButton();
+      showDoneButton();
       setSelectedPiece(null);
       return;
     }
