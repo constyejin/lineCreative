@@ -291,9 +291,8 @@ section {
   flex-direction: column;
   flex-wrap: wrap;
   align-items: space-around;
+  justify-content: center;
   gap: 10px;
-  padding-top: 16px;
-  /* border: 1px solid red; */
 }
 
 .page.active {
