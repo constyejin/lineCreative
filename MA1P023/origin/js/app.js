@@ -93,7 +93,6 @@ function init() {
       // console.log(element)
       if(element.classList.contains('selected')) {
         showRotateArea();
-
       }
     });
   });
@@ -242,9 +241,13 @@ function allowDrop(event) {
 
 function showRotateArea() {
   var selectedPieceIndex = Array.from(pieces).findIndex(p => p === selectedPiece);
-
   var posX = selectedPieceIndex % 8 < 4 ? 200 : 360;
   var posY = 40 + (140 * (selectedPieceIndex % 4));
+
+  if ([12, 13, 14].includes(selectedPieceIndex)) {
+    posY += 70;
+  }
+
   var rotateArea = root.querySelector('#btn-rotate-area');
   rotateArea.classList.add('active');
   rotateArea.style.position = 'fixed';
