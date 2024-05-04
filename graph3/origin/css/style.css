@@ -624,6 +624,8 @@ section {
 }
 
 .graph-y-right {
+  background-image: url(../img/table-default.png);
+  background-position: right;
   background-color: #fff;
 }
 
