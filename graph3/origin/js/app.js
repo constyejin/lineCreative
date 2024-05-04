@@ -32,6 +32,8 @@ window.addEventListener('script-loaded', function(ev) {
   let table1 = root.querySelector('.table-1');
   let table2 = root.querySelector('.table-2');
 
+  let myChart = null;
+
   switchBtn.addEventListener('click', () => {
     if(!switchCheck.checked) {
       switch1();
@@ -40,9 +42,9 @@ window.addEventListener('script-loaded', function(ev) {
     }
   })
 
+
   function switch1() {
     sliderTxt.innerHTML = '표1';
-    // switchCheck.disabled = check;
     switchBtn.classList.remove('switch-2');
     table2.classList.remove('active');
     table1.classList.add('active');
@@ -50,11 +52,11 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelector('.line').style.marginTop = '40px';
     root.querySelectorAll('.table-title')[1].style.marginTop = '24px';
     root.querySelector('.graph-area').style.marginTop = '20px';
+    reset();
   }
 
   function switch2() {
     sliderTxt.innerHTML = '표2';
-    // switchCheck.disabled = check;
     switchBtn.classList.add('switch-2');
     table1.classList.remove('active');
     table2.classList.add('active');
@@ -62,6 +64,7 @@ window.addEventListener('script-loaded', function(ev) {
     root.querySelector('.line').style.marginTop = '36px';
     root.querySelectorAll('.table-title')[1].style.marginTop = '0';
     root.querySelector('.graph-area').style.marginTop = '8px';
+    reset();
   }
 
 
@@ -97,7 +100,6 @@ window.addEventListener('script-loaded', function(ev) {
           if(this.value !== '') {
             lastBlurredElement = inputElement;
             valuesRow1[num - 1] = this.value;
-            console.log(valuesRow1)
           }
         });
       }
@@ -213,6 +215,8 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
   })
+
+
   
 
   // 칸 플러스, 마이너스, 초기화
@@ -307,16 +311,16 @@ window.addEventListener('script-loaded', function(ev) {
       btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
       selectUnit.style.left = 344 + 'px';
 
-      let rowLi = item.querySelectorAll('li');
-      rowLi.forEach((li) => {
-        let rowInput = li.querySelectorAll('input');
-        let rowSpan = li.querySelector('span');
+      // let rowLi = item.querySelectorAll('li');
+      // rowLi.forEach((li) => {
+      //   let rowInput = li.querySelectorAll('input');
+      //   let rowSpan = li.querySelector('span');
 
-        rowInput.forEach((input) => {
-          input.value = '';
-        })
-        rowSpan ? rowSpan.innerHTML = '' : null;
-      });
+      //   rowInput.forEach((input) => {
+      //     input.value = '';
+      //   })
+      //   rowSpan ? rowSpan.innerHTML = '' : null;
+      // });
 
       if (rowItemLeng > 4) {
         while (rowItemLeng > 4) {
@@ -478,7 +482,7 @@ window.addEventListener('script-loaded', function(ev) {
             beginAtZero: true,
 
             grid : {
-              display : true,
+              display : false,
               drawBorder: false,
             },
             ticks: {
@@ -549,11 +553,14 @@ window.addEventListener('script-loaded', function(ev) {
 
 
   // 전체 초기화
-  let resetBtn = root.querySelector('.reset-btn');
-
-	resetBtn.addEventListener('click', () => {
+  function reset() {
     // switch1();
     valuesX1 = [];
+
+    let inputFields = root.querySelectorAll('input');
+    inputFields.forEach(input => {
+      input.value = '';
+    });
 
     unitTxtX.innerHTML = '';
     unitTxtY.innerHTML = '';
@@ -565,8 +572,12 @@ window.addEventListener('script-loaded', function(ev) {
 
     // 물결선 초기화
     hideWaveLine();
+  }
+
+  let resetBtn = root.querySelector('.reset-btn');
+	resetBtn.addEventListener('click', () => {
+    reset();
 	});
 });
-
 
 
