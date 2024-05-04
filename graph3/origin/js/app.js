@@ -40,7 +40,7 @@ window.addEventListener('script-loaded', function(ev) {
     }
   })
 
-  function switch1(check) {
+  function switch1() {
     sliderTxt.innerHTML = '표1';
     // switchCheck.disabled = check;
     switchBtn.classList.remove('switch-2');
@@ -72,26 +72,60 @@ window.addEventListener('script-loaded', function(ev) {
   let valuesRow1 = [];
   let lastBlurredElement = null;
 
+  function updateTable1ValX() {
+    table1ValX = root.querySelectorAll('.table-1 .row-header li');
+    // valuesX1 = Array(table1ValX.length).fill(null);
 
-  function addBlurEventToElements(elements, values, lastBlurredElement) {
-    elements.forEach((li, num) => {
+    table1ValX.forEach((li, num) => {
       let inputElement = li.querySelector('input');
 
       if(num !== 0) {
         inputElement.addEventListener('blur', function() {
           if(this.value !== '') {
             lastBlurredElement = inputElement;
-            values[num - 1] = this.value;
+            valuesX1[num - 1] = this.value;
+          }
+        });
+      }
+    });
+
+    tableRow1.forEach((li, num) => {
+      let inputElement = li.querySelector('input');
+
+      if(num !== 0) {
+        inputElement.addEventListener('blur', function() {
+          if(this.value !== '') {
+            lastBlurredElement = inputElement;
+            valuesRow1[num - 1] = this.value;
+            console.log(valuesRow1)
           }
         });
       }
     });
   }
 
-  function updateTable1ValX() {
-    addBlurEventToElements(table1ValX, valuesX1, lastBlurredElement);
-    addBlurEventToElements(tableRow1, valuesRow1, lastBlurredElement);
-  }
+
+
+  // function addBlurEventToElements(elements, values, lastBlurredElement) {
+  //   elements.forEach((li, num) => {
+  //     let inputElement = li.querySelector('input');
+
+  //     if(num !== 0) {
+  //       inputElement.addEventListener('blur', function() {
+  //         if(this.value !== '') {
+  //           lastBlurredElement = inputElement;
+  //           values[num - 1] = this.value;
+  //           console.log(values)
+  //         }
+  //       });
+  //     }      
+  //   });
+  // }
+
+  // function updateTable1ValX() {
+  //   addBlurEventToElements(table1ValX, valuesX1, lastBlurredElement);
+  //   addBlurEventToElements(tableRow1, valuesRow1, lastBlurredElement);
+  // }
 
   updateTable1ValX();
 
@@ -373,7 +407,7 @@ window.addEventListener('script-loaded', function(ev) {
   let myCt = root.getElementById('myChart').getContext('2d');
 
   let chartData = {
-    labels: [null, '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', null],
+    labels: valuesX1,
     datasets: [
       {
         label: '그래프1',
