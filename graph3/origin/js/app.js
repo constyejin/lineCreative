@@ -71,7 +71,7 @@ window.addEventListener('script-loaded', function(ev) {
   let valuesX1 = [];
   let valuesRow1 = [];
   let lastBlurredElement = null;
-
+  
   // 표1 첫번째 행 입력값 valuesX1 배열에 저장
   function updateTable1ValX() {
     table1ValX = root.querySelectorAll('.table-1 .row-header li');
@@ -92,13 +92,13 @@ window.addEventListener('script-loaded', function(ev) {
     });
 
     tableRow1.forEach((li, num) => {
-      let inputElement = li.querySelector('input');
-
+      let rowElement = li.querySelector('input');
       if(num !== 0) {
-        inputElement.addEventListener('blur', function() {
+        rowElement.addEventListener('blur', function() {
           if(this.value !== '') {
-            lastBlurredElement = inputElement;
+            lastBlurredElement = rowElement;
             valuesRow1[num - 1] = this.value;
+            console.log(valuesRow1)
           }
         });
       }
@@ -244,7 +244,6 @@ window.addEventListener('script-loaded', function(ev) {
         valuesRow1.splice(lastIndex, 1);
       }
       updateTable1ValX();
-      console.log(valuesX1)
     })
 
     btnPlus.addEventListener('click', function() {
@@ -296,10 +295,10 @@ window.addEventListener('script-loaded', function(ev) {
         lastInputRow = rows[1].querySelector('li:last-child input');
       }
 
-      if (lastInputX.value !== '') valuesX1.push(lastInputX.value);
-      if (lastInputRow && lastInputRow.value !== '') valuesRow1.push(lastInputRow.value);
-      console.log(valuesX1)
+      if (lastInputX.value !== '' && !valuesX1.includes(lastInputX.value)) valuesX1.push(lastInputX.value);
+      if (lastInputRow && lastInputRow.value !== '' && !valuesRow1.includes(lastInputRow.value)) valuesRow1.push(lastInputRow.value);
     })
+
 
     root.querySelector('.reset-btn').addEventListener('click', () => {
       btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
