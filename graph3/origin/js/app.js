@@ -25,23 +25,13 @@ window.addEventListener('script-loaded', function(ev) {
   });
 
 
+  // 표1, 표2 스위치
   let switchBtn = root.querySelector('.switch-btn');
   let switchCheck = switchBtn.querySelector('input');
   let sliderTxt = switchBtn.querySelector('.slider-txt');
 
   let table1 = root.querySelector('.table-1');
   let table2 = root.querySelector('.table-2');
-
-  let myChart = null;
-
-  switchBtn.addEventListener('click', () => {
-    if(!switchCheck.checked) {
-      switch1();
-    } else {
-      switch2();
-    }
-  })
-
 
   function switch1() {
     sliderTxt.innerHTML = '표1';
@@ -67,17 +57,25 @@ window.addEventListener('script-loaded', function(ev) {
     reset();
   }
 
+  switchBtn.addEventListener('click', () => {
+    if(!switchCheck.checked) {
+      switch1();
+    } else {
+      switch2();
+    }
+  })
 
-  // 표1 첫번째 행 입력값 valuesX1 배열에 저장 
-  let table1ValX = root.querySelectorAll('.table-1 .row-header li');
-  let tableRow1 = root.querySelectorAll('.table-1 .row')[1].querySelectorAll('li');
+  let table1ValX;
+  let tableRow1;
+
   let valuesX1 = [];
   let valuesRow1 = [];
   let lastBlurredElement = null;
 
+  // 표1 첫번째 행 입력값 valuesX1 배열에 저장
   function updateTable1ValX() {
     table1ValX = root.querySelectorAll('.table-1 .row-header li');
-    // valuesX1 = Array(table1ValX.length).fill(null);
+    tableRow1 = root.querySelectorAll('.table-1 .row')[1].querySelectorAll('li');
 
     table1ValX.forEach((li, num) => {
       let inputElement = li.querySelector('input');
@@ -87,6 +85,7 @@ window.addEventListener('script-loaded', function(ev) {
           if(this.value !== '') {
             lastBlurredElement = inputElement;
             valuesX1[num - 1] = this.value;
+            console.log(valuesX1);
           }
         });
       }
@@ -106,31 +105,7 @@ window.addEventListener('script-loaded', function(ev) {
     });
   }
 
-
-
-  // function addBlurEventToElements(elements, values, lastBlurredElement) {
-  //   elements.forEach((li, num) => {
-  //     let inputElement = li.querySelector('input');
-
-  //     if(num !== 0) {
-  //       inputElement.addEventListener('blur', function() {
-  //         if(this.value !== '') {
-  //           lastBlurredElement = inputElement;
-  //           values[num - 1] = this.value;
-  //           console.log(values)
-  //         }
-  //       });
-  //     }      
-  //   });
-  // }
-
-  // function updateTable1ValX() {
-  //   addBlurEventToElements(table1ValX, valuesX1, lastBlurredElement);
-  //   addBlurEventToElements(tableRow1, valuesRow1, lastBlurredElement);
-  // }
-
   updateTable1ValX();
-
 
   let selectUnitTxt = root.querySelectorAll('.select-unit-txt');
   let selectUnit = root.querySelector('.select-unit');
@@ -258,7 +233,18 @@ window.addEventListener('script-loaded', function(ev) {
         btnMinus.querySelector('img').src = new URL('../img/Status=Off.png', metaUrl).href;
       }
 
+
+      const lis = item.querySelectorAll('li');
+      const lastIndex = Array.from(lis).indexOf(lis[lis.length - 1]);
+
+      if (lastIndex < valuesX1.length) {
+        valuesX1.splice(lastIndex, 1);
+      }
+      if (lastIndex < valuesRow1.length) {
+        valuesRow1.splice(lastIndex, 1);
+      }
       updateTable1ValX();
+      console.log(valuesX1)
     })
 
     btnPlus.addEventListener('click', function() {
@@ -302,6 +288,17 @@ window.addEventListener('script-loaded', function(ev) {
       }
 
       updateTable1ValX();
+      const lastInputX = root.querySelector('.table-1 .row-header li:last-child input');
+
+      const rows = root.querySelectorAll('.table-1 .row');
+      let lastInputRow;
+      if (rows.length > 1) {
+        lastInputRow = rows[1].querySelector('li:last-child input');
+      }
+
+      if (lastInputX.value !== '') valuesX1.push(lastInputX.value);
+      if (lastInputRow && lastInputRow.value !== '') valuesRow1.push(lastInputRow.value);
+      console.log(valuesX1)
     })
 
     root.querySelector('.reset-btn').addEventListener('click', () => {
@@ -409,7 +406,7 @@ window.addEventListener('script-loaded', function(ev) {
   let myCt = root.getElementById('myChart').getContext('2d');
 
   let chartData = {
-    labels: valuesX1,
+    labels: table1ValX,
     datasets: [
       {
         label: '그래프1',
@@ -439,6 +436,7 @@ window.addEventListener('script-loaded', function(ev) {
 
   let parentElementX = root.querySelector(".value-x");
   let parentElementY = root.querySelector(".value-y");
+  let myChart;
 
   function chartDraw() {
     myChart = new Chart(myCt, {
@@ -500,7 +498,6 @@ window.addEventListener('script-loaded', function(ev) {
 
     // chartData에서 labels 값 .value-x 에 추가
     let labelsX = chartData.labels;
-    console.log(labelsX);
     labelsX = labelsX.slice(1, labelsX.length - 1);
 
 
@@ -512,7 +509,6 @@ window.addEventListener('script-loaded', function(ev) {
 
     // y축 value 값 .value-y 에 추가
     let labelsY = myChart.scales.y.ticks;
-    console.log(labelsY); 
     labelsY = labelsY.slice().reverse();
 
     for (let i = 0; i < labelsY.length; i++) {
