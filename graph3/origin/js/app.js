@@ -1,7 +1,7 @@
 import {setCommonRoot, autoScale, toggleFullScreen} from './common.js';
 
-var metaUrl = import.meta.url;
-var root = null;
+let metaUrl = import.meta.url;
+let root = null;
 
 window.addEventListener('script-loaded', function(ev) {	
   if (root) return;
@@ -215,8 +215,6 @@ window.addEventListener('script-loaded', function(ev) {
       }
     })
   })
-
-
   
 
   // 칸 플러스, 마이너스, 초기화
@@ -439,8 +437,11 @@ window.addEventListener('script-loaded', function(ev) {
   }
 
 
+  let parentElementX = root.querySelector(".value-x");
+  let parentElementY = root.querySelector(".value-y");
+
   function chartDraw() {
-    let chart = new Chart(myCt, {
+    myChart = new Chart(myCt, {
       type: 'line', 
       data: chartData,
       options: {
@@ -498,25 +499,24 @@ window.addEventListener('script-loaded', function(ev) {
     });
 
     // chartData에서 labels 값 .value-x 에 추가
-    var labelsX = chartData.labels;
+    let labelsX = chartData.labels;
+    console.log(labelsX);
     labelsX = labelsX.slice(1, labelsX.length - 1);
 
-    var parentElement = root.querySelector(".value-x");
 
-    for (var i = 0; i < labelsX.length; i++) {
-      var newElementHTML = '<li>' + labelsX[i] + '</li>';
-      parentElement.insertAdjacentHTML('beforeend', newElementHTML);
+    for (let i = 0; i < labelsX.length; i++) {
+      let newElementHTML = '<li>' + labelsX[i] + '</li>';
+      parentElementX.insertAdjacentHTML('beforeend', newElementHTML);
     }
 
 
     // y축 value 값 .value-y 에 추가
-    let labelsY = chart.scales.y.ticks;
+    let labelsY = myChart.scales.y.ticks;
+    console.log(labelsY); 
     labelsY = labelsY.slice().reverse();
 
-    var parentElementY = root.querySelector(".value-y");
-
-    for (var i = 0; i < labelsY.length; i++) {
-      var newElementHTML = '<li>' + labelsY[i].value + '</li>';
+    for (let i = 0; i < labelsY.length; i++) {
+      let newElementHTML = '<li>' + labelsY[i].value + '</li>';
       parentElementY.insertAdjacentHTML('beforeend', newElementHTML);
     }
   }
@@ -554,12 +554,19 @@ window.addEventListener('script-loaded', function(ev) {
 
   // 전체 초기화
   function reset() {
-    // switch1();
     valuesX1 = [];
 
     let inputFields = root.querySelectorAll('input');
+
     inputFields.forEach(input => {
       input.value = '';
+    });
+
+    let spanFields = root.querySelectorAll('span');
+    spanFields = Array.from(spanFields).filter(span => !span.classList.contains('slider-txt'));
+
+    spanFields.forEach(span => {
+      span.innerHTML = '';
     });
 
     unitTxtX.innerHTML = '';
@@ -567,17 +574,35 @@ window.addEventListener('script-loaded', function(ev) {
 
     xTxt.innerHTML = '';
     yTxt.innerHTML = '';
+
     // 타이틀 초기화
     hideTitle();
 
     // 물결선 초기화
     hideWaveLine();
+
+    // chart.js 값 초기화
+    if (myChart) {
+      myChart.destroy();
+      myChart = null;
+    }
+
+    chartData.labels = [];
+    chartData.datasets.forEach((dataset) => {
+      dataset.data = [];
+    });
+
+    stepSize = updateStepSize(0);
+
+    parentElementX.innerHTML = '';
+    parentElementY.innerHTML = '';
   }
 
   let resetBtn = root.querySelector('.reset-btn');
 	resetBtn.addEventListener('click', () => {
     reset();
 	});
+
 });
 
 
