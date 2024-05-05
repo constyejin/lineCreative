@@ -563,12 +563,15 @@ window.addEventListener('script-loaded', function(ev) {
     });
 
     let spanFields = root.querySelectorAll('span');
-    spanFields = Array.from(spanFields).filter(span => !span.classList.contains('slider-txt'));
+    spanFields = Array.from(spanFields).filter(span => {
+      return !span.classList.contains('slider-txt') && 
+            !span.closest('.popup-content-list') &&
+            !span.closest('.check-break');
+    });
 
     spanFields.forEach(span => {
       span.innerHTML = '';
     });
-
     unitTxtX.innerHTML = '';
     unitTxtY.innerHTML = '';
 
