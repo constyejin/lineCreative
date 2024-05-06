@@ -244,6 +244,7 @@ window.addEventListener('script-loaded', function(ev) {
         valuesRow1.splice(lastIndex, 1);
       }
       updateTable1ValX();
+      console.log(valuesX1, valuesRow1)
     })
 
     btnPlus.addEventListener('click', function() {
@@ -288,8 +289,8 @@ window.addEventListener('script-loaded', function(ev) {
 
       updateTable1ValX();
       const lastInputX = root.querySelector('.table-1 .row-header li:last-child input');
-
       const rows = root.querySelectorAll('.table-1 .row');
+
       let lastInputRow;
       if (rows.length > 1) {
         lastInputRow = rows[1].querySelector('li:last-child input');
@@ -297,6 +298,7 @@ window.addEventListener('script-loaded', function(ev) {
 
       if (lastInputX.value !== '' && !valuesX1.includes(lastInputX.value)) valuesX1.push(lastInputX.value);
       if (lastInputRow && lastInputRow.value !== '' && !valuesRow1.includes(lastInputRow.value)) valuesRow1.push(lastInputRow.value);
+      console.log(valuesX1, valuesRow1)
     })
 
 
@@ -405,12 +407,12 @@ window.addEventListener('script-loaded', function(ev) {
   let myCt = root.getElementById('myChart').getContext('2d');
 
   let chartData = {
-    labels: table1ValX,
+    labels: valuesX1,
     datasets: [
       {
         label: '그래프1',
         fill: false,
-        data: [null, 315219, 223123, 64422,],
+        data: valuesRow1,
         borderColor: '#EF848C', // 선 색상 
         pointBackgroundColor: '#B73750', // 데이터 포인트 색상 
         borderWidth: 6, // 선 두께 
@@ -436,8 +438,27 @@ window.addEventListener('script-loaded', function(ev) {
   let parentElementX = root.querySelector(".value-x");
   let parentElementY = root.querySelector(".value-y");
   let myChart;
-
+  let isNullAdded = false;
+  
   function chartDraw() {
+    if (myChart) {
+      myChart.destroy();
+    }
+
+    if (!isNullAdded) {
+      chartData.datasets.forEach(dataset => {
+        dataset.data.unshift(undefined);
+        dataset.data.push(undefined);
+      });
+
+      // Add dummy labels at the beginning and end
+      chartData.labels.unshift('');
+      chartData.labels.push('');
+
+      isNullAdded = true;
+    }
+
+    
     myChart = new Chart(myCt, {
       type: 'line', 
       data: chartData,
@@ -456,10 +477,10 @@ window.addEventListener('script-loaded', function(ev) {
 
         scales: {
           x : {
-            // min : 0,
-            // max : 8,
+            min : -1,
+            max : chartData.labels.length,
             grid : {
-              display : true,
+              display : false,
               drawBorder: false,
               color: '#ACAFBF', 
               borderWidth: 2,
@@ -497,8 +518,6 @@ window.addEventListener('script-loaded', function(ev) {
 
     // chartData에서 labels 값 .value-x 에 추가
     let labelsX = chartData.labels;
-    labelsX = labelsX.slice(1, labelsX.length - 1);
-
 
     for (let i = 0; i < labelsX.length; i++) {
       let newElementHTML = '<li>' + labelsX[i] + '</li>';
@@ -517,8 +536,13 @@ window.addEventListener('script-loaded', function(ev) {
   }
 
 
-  // chartDraw();
   root.querySelector('.graph-all').addEventListener('click', () => {
+    let valueXElements = root.querySelectorAll('.value-x li');
+    valueXElements.forEach((li) => {
+      li.remove();
+    });
+ 
+    updateTable1ValX();
     chartDraw();
   })
 
