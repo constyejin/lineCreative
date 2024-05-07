@@ -89,16 +89,12 @@ function init() {
     });
 
     element.addEventListener('dragend', () => {
+      checkAllPiecesInAnswerZone();
       element.classList.remove('dragging');
-      // console.log(element)
       if(element.classList.contains('selected')) {
         showRotateArea();
       }
     });
-  });
-
-  root.addEventListener('click', e => {
-      setSelectedPiece(null);
   });
 }
 
@@ -109,7 +105,6 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   var answerPanel = dropArea.querySelector('.answer-panel');
 
   if (closestDropzone === dragArea) {
-    // piece.classList.add('selected');
     resetPiecePosition(piece);
     return;
   }
@@ -150,10 +145,12 @@ function onDroppedAnswerSlot(piece, closestDropzone, orderedDropzones) {
   // 정답 슬롯에 넣고 셀렉트 효과 지움
   setSelectedPiece(null);
   answerSlot.appendChild(piece);
+}
 
-
-  // 모든 조각이 정답판에 들어가있는지?
- var isAllAnswer = Array.from(answerPanel.querySelectorAll('.answer-slot')).every(piece => piece.querySelector('.puzzle-piece') !== null); 
+function checkAllPiecesInAnswerZone() {
+  var answerPanel = root.querySelector('#puzzle-drop-area .answer-panel');
+  var isAllAnswer = Array.from(answerPanel.querySelectorAll('.answer-slot')).every(slot => slot.querySelector('.puzzle-piece') !== null); 
+  console.log(isAllAnswer);
   if (isAllAnswer) {
     showDoneButton();
   } else {
@@ -219,9 +216,8 @@ function setSelectedPiece(piece) {
   pieces.forEach(p => p.classList.remove('selected'));
 
   if (piece != null) {
-    // 정답판에 들어간 조각인지?
+    // 정답판에 들어간 조각인지?    
     if (piece.parentElement.hasAttribute('data-correct-index')) {
-      hideDoneButton();
       setSelectedPiece(null);
       return;
     }
@@ -240,8 +236,6 @@ function allowDrop(event) {
   event.preventDefault();
 }
 
-
-
 function showRotateArea() {
   var selectedPieceIndex = Array.from(pieces).findIndex(p => p === selectedPiece);
   var posX = selectedPieceIndex % 8 < 4 ? 200 : 360;
@@ -257,7 +251,6 @@ function showRotateArea() {
   rotateArea.style.left = (posX) + 'px';
   rotateArea.style.top = (posY) + 'px';
 }
-
 
 function hideRotateArea() {
   var rotateArea = root.querySelector('#btn-rotate-area');
