@@ -394,21 +394,21 @@ section {
 }
 
 /* 정답 슬롯 포지션 */
-.answer-slot:nth-of-type(1)  { top: 118px; left: 136px; /* background-color: red;     */ }
-.answer-slot:nth-of-type(2)  { top: 118px; left: 204px; /* background-color: blue;    */ }
-.answer-slot:nth-of-type(3)  { top: 118px; left: 272px; /* background-color: yellow;  */ }
-.answer-slot:nth-of-type(4)  { top: 236px; left: 68px;  /* background-color: red;     */ }
+.answer-slot:nth-of-type(1)  { top: 118.5px; left: 136px; /* background-color: red;     */ }
+.answer-slot:nth-of-type(2)  { top: 118.5px; left: 204px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(3)  { top: 118.5px; left: 272px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(4)  { top: 236.5px; left: 68px;  /* background-color: red;     */ }
 .answer-slot:nth-of-type(5)  { top: 236px; left: 136px; /* background-color: blue;    */ }
-.answer-slot:nth-of-type(6)  { top: 236px; left: 204px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(6)  { top: 236.5px; left: 204px; /* background-color: yellow;  */ }
 .answer-slot:nth-of-type(7)  { top: 236px; left: 272px; /* background-color: red;     */ }
-.answer-slot:nth-of-type(8)  { top: 236px; left: 340px; /* background-color: blue;    */ }
-.answer-slot:nth-of-type(9)  { top: 354px; left: 0px;   /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(8)  { top: 236.5px; left: 340px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(9)  { top: 354.5px; left: 0px;   /* background-color: yellow;  */ }
 .answer-slot:nth-of-type(10) { top: 354px; left: 68px;  /* background-color: red;     */ }
-.answer-slot:nth-of-type(11) { top: 354px; left: 136px; /* background-color: blue;    */ }
+.answer-slot:nth-of-type(11) { top: 354.5px; left: 136px; /* background-color: blue;    */ }
 .answer-slot:nth-of-type(12) { top: 354px; left: 204px; /* background-color: yellow;  */ }
-.answer-slot:nth-of-type(13) { top: 354px; left: 272px; /* background-color: red;     */ }
+.answer-slot:nth-of-type(13) { top: 354.5px; left: 272px; /* background-color: red;     */ }
 .answer-slot:nth-of-type(14) { top: 354px; left: 340px; /* background-color: blue;    */ }
-.answer-slot:nth-of-type(15) { top: 354px; left: 408px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(15) { top: 354.5px; left: 408px; /* background-color: yellow;  */ }
 
 /* 조각 회전 버튼 패널 */
 #btn-rotate-area {
