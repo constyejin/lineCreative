@@ -267,9 +267,11 @@ section {
 }
 
 .puzzle-piece .rotate-holder img {
+  width: 100%;
+  height: 100%;
   position: absolute;
   left: -8.5px;
-  top: 13.6px;
+  top: 13px;
   width: 166px;
   height: 166px;
   transform-origin: 50% 50%;
@@ -406,7 +408,7 @@ section {
 .answer-slot:nth-of-type(12) { top: 354px; left: 204px; /* background-color: yellow;  */ }
 .answer-slot:nth-of-type(13) { top: 354px; left: 272px; /* background-color: red;     */ }
 .answer-slot:nth-of-type(14) { top: 354px; left: 340px; /* background-color: blue;    */ }
-.answer-slot:nth-of-type(15) { top: 354.4px; left: 408px; /* background-color: yellow;  */ }
+.answer-slot:nth-of-type(15) { top: 354px; left: 408px; /* background-color: yellow;  */ }
 
 /* 조각 회전 버튼 패널 */
 #btn-rotate-area {
