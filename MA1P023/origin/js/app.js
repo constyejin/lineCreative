@@ -221,8 +221,7 @@ function setSelectedPiece(piece) {
   if (piece != null) {
     // 정답판에 들어간 조각인지?
     if (piece.parentElement.hasAttribute('data-correct-index')) {
-      // hideDoneButton();
-      showDoneButton();
+      hideDoneButton();
       setSelectedPiece(null);
       return;
     }
