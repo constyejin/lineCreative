@@ -72,6 +72,7 @@ window.addEventListener('script-loaded', function(ev) {
   let valuesRow1 = [];
   let lastBlurredElement = null;
   
+
   // 표1 첫번째 행 입력값 valuesX1 배열에 저장
   function updateTable1ValX() {
     table1ValX = root.querySelectorAll('.table-1 .row-header li');
@@ -85,7 +86,6 @@ window.addEventListener('script-loaded', function(ev) {
           if(this.value !== '') {
             lastBlurredElement = inputElement;
             valuesX1[num - 1] = this.value;
-            console.log(valuesX1);
           }
         });
       }
@@ -98,7 +98,6 @@ window.addEventListener('script-loaded', function(ev) {
           if(this.value !== '') {
             lastBlurredElement = rowElement;
             valuesRow1[num - 1] = this.value;
-            console.log(valuesRow1)
           }
         });
       }
@@ -155,7 +154,6 @@ window.addEventListener('script-loaded', function(ev) {
       })
     })
   }
-
 
 
   // 팝업 포지션 변경 (기본 3개)
@@ -298,7 +296,6 @@ window.addEventListener('script-loaded', function(ev) {
 
       if (lastInputX.value !== '' && !valuesX1.includes(lastInputX.value)) valuesX1.push(lastInputX.value);
       if (lastInputRow && lastInputRow.value !== '' && !valuesRow1.includes(lastInputRow.value)) valuesRow1.push(lastInputRow.value);
-      console.log(valuesX1, valuesRow1)
     })
 
 
@@ -306,17 +303,6 @@ window.addEventListener('script-loaded', function(ev) {
       btnPlus.querySelector('img').src = new URL('../img/Status=On-1.png', metaUrl).href;
       btnMinus.querySelector('img').src = new URL('../img/Status=On.png', metaUrl).href;
       selectUnit.style.left = 344 + 'px';
-
-      // let rowLi = item.querySelectorAll('li');
-      // rowLi.forEach((li) => {
-      //   let rowInput = li.querySelectorAll('input');
-      //   let rowSpan = li.querySelector('span');
-
-      //   rowInput.forEach((input) => {
-      //     input.value = '';
-      //   })
-      //   rowSpan ? rowSpan.innerHTML = '' : null;
-      // });
 
       if (rowItemLeng > 4) {
         while (rowItemLeng > 4) {
@@ -369,8 +355,6 @@ window.addEventListener('script-loaded', function(ev) {
     } else {
       hideTitle();
     }
-
-
   });
 
 
@@ -439,26 +423,16 @@ window.addEventListener('script-loaded', function(ev) {
   let parentElementY = root.querySelector(".value-y");
   let myChart;
   let isNullAdded = false;
-  
+  let prevValues = [];
+
   function chartDraw() {
     if (myChart) {
       myChart.destroy();
     }
 
-    if (!isNullAdded) {
-      chartData.datasets.forEach(dataset => {
-        dataset.data.unshift(undefined);
-        dataset.data.push(undefined);
-      });
+    const currentValues = Array.from(root.querySelectorAll('.value-y li')).map(li => li.textContent);
+    prevValues = currentValues;
 
-      // Add dummy labels at the beginning and end
-      chartData.labels.unshift('');
-      chartData.labels.push('');
-
-      isNullAdded = true;
-    }
-
-    
     myChart = new Chart(myCt, {
       type: 'line', 
       data: chartData,
@@ -477,13 +451,13 @@ window.addEventListener('script-loaded', function(ev) {
 
         scales: {
           x : {
-            min : -1,
-            max : chartData.labels.length,
+            // min : -1,
+            // max : chartData.labels.length,
             grid : {
               display : false,
               drawBorder: false,
-              color: '#ACAFBF', 
-              borderWidth: 2,
+              // color: '#ACAFBF', 
+              // borderWidth: 2,
             },
             ticks: {
               display : false,
@@ -535,7 +509,7 @@ window.addEventListener('script-loaded', function(ev) {
     }
   }
 
-
+   
   root.querySelector('.graph-all').addEventListener('click', () => {
     let valueXElements = root.querySelectorAll('.value-x li');
     valueXElements.forEach((li) => {
@@ -545,7 +519,6 @@ window.addEventListener('script-loaded', function(ev) {
     updateTable1ValX();
     chartDraw();
   })
-
 
 
   // 꺾은선그래프 자료 모음 팝업 open, close
